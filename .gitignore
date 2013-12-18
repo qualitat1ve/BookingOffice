@@ -27,7 +27,7 @@ build.xml
 local.properties
 *.iml
 /out
-/target
+*/target/**
 
 #Temporary files
 *~
