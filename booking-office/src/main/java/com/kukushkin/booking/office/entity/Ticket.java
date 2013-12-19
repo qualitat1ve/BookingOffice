@@ -1,7 +1,5 @@
 package com.kukushkin.booking.office.entity;
 
-import java.sql.Date;
-
 import javax.persistence.*;
 
 @Entity
@@ -11,8 +9,7 @@ public class Ticket implements Persistent {
 	private int id;
 	private int flightId;
 	private int status;
-	private Date reservationDate;
-	private Date paymentDate;
+	
 	
 	public Ticket() {}
 	
@@ -37,17 +34,4 @@ public class Ticket implements Persistent {
 	public void setStatus(int status) {
 		this.status = status;
 	}
-	public Date getReservationDate() {
-		return reservationDate;
-	}
-	public void setReservationDate(Date reservationDate) {
-		this.reservationDate = reservationDate;
-	}
-	public Date getPaymentDate() {
-		return paymentDate;
-	}
-	public void setPaymentDate(Date paymentDate) {
-		this.paymentDate = paymentDate;
-	}
-
 }

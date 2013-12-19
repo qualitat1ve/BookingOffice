@@ -6,7 +6,7 @@ import javax.persistence.Persistence;
 
 import com.kukushkin.booking.office.entity.Persistent;
 
-public abstract class BaseDao<T extends Persistent> implements Dao<T> {
+public abstract class BaseDao<T extends Persistent> {
 	private final String UNIT_NAME = "BookingOffice-prod";
 	private EntityManagerFactory factory;
 	

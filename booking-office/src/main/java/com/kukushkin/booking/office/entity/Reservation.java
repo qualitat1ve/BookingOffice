@@ -1,5 +1,7 @@
 package com.kukushkin.booking.office.entity;
 
+import java.sql.Date;
+
 import javax.persistence.*;
 
 @Entity
@@ -12,6 +14,8 @@ public class Reservation implements Persistent {
 	private String customerName;
 	private String customerMiddlename;
 	private String customerAddress;
+	private Date reservationDate;
+	private Date paymentDate;
 	
 	public Reservation() {}
 	
