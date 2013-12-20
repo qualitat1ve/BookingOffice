@@ -8,30 +8,6 @@ import com.kukushkin.booking.office.entity.Reservation;
 public class ReservationDaoImpl extends BaseDao<Reservation> implements ReservationDao {
 
 	@Override
-	public void add(Reservation persistent) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void delete(int id) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void delete(Reservation persistent) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void update(Reservation persistent) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public List<Reservation> findExpired() throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
@@ -43,4 +19,8 @@ public class ReservationDaoImpl extends BaseDao<Reservation> implements Reservat
 		return null;
 	}
 
+    @Override
+    protected Class<Reservation> getType() {
+        return Reservation.class;
+    }
 }

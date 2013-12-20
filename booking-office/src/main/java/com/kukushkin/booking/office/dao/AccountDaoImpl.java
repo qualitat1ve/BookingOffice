@@ -4,23 +4,16 @@ import com.kukushkin.booking.office.entity.Account;
 
 public class AccountDaoImpl extends BaseDao<Account> implements AccountDao {
 
+    @Override
+    protected Class<Account> getType() {
+        return Account.class;
+    }
 
-	@Override
-	public void update(Account persistent) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void delete(int id) {
-		getEntityManger().getTransaction().begin();
-		getEntityManger().remove(getEntityManger().find(Account.class, id));
-		getEntityManger().getTransaction().commit();
-	}
-
-	@Override
+    @Override
 	public void setPermissions(int accountId, int userRole) {
+        getEntityManger().getTransaction().begin();
 		getEntityManger().find(Account.class, accountId).setUserRole(userRole);
+        getEntityManger().getTransaction().commit();
 		
 	}
 
