@@ -59,4 +59,16 @@ public class Reservation implements Persistent {
 	public void setCustomerAddress(String customerAddress) {
 		this.customerAddress = customerAddress;
 	}
+	public Date getReservationDate() {
+		return reservationDate;
+	}
+	public void setReservationDate(Date reservationDate) {
+		this.reservationDate = reservationDate;
+	}
+	public Date getPaymentDate() {
+		return paymentDate;
+	}
+	public void setPaymentDate(Date paymentDate) {
+		this.paymentDate = paymentDate;
+	}
 }

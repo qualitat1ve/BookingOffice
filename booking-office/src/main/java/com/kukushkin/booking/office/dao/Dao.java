@@ -10,5 +10,4 @@ public interface Dao<T extends Persistent> {
 	void update(T persistent) throws SQLException;
 	void delete(int id) throws SQLException;
 	void delete(T persistent) throws SQLException;
-
 }
