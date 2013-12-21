@@ -7,7 +7,7 @@ public class Account implements Persistent {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-	private String loggin;
+	private String login;
 	private int password;
 	private String userName;
 	private String userSurname;
@@ -26,12 +26,12 @@ public class Account implements Persistent {
 		this.id = id;
 	}
 
-	public String getLoggin() {
-		return loggin;
+	public String getLogin() {
+		return login;
 	}
 
-	public void setLoggin(String loggin) {
-		this.loggin = loggin;
+	public void setLogin(String login) {
+		this.login = login;
 	}
 
 	public int getPassword() {

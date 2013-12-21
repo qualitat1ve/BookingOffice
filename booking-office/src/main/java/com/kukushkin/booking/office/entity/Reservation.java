@@ -9,7 +9,6 @@ public class Reservation implements Persistent {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-	private int tickedId;
 	private String customerSurname;
 	private String customerName;
 	private String customerMiddlename;
@@ -29,12 +28,6 @@ public class Reservation implements Persistent {
 		this.id = id;
 	}
 	
-	public int getTickedId() {
-		return tickedId;
-	}
-	public void setTickedId(int tickedId) {
-		this.tickedId = tickedId;
-	}
 	public String getCustomerSurname() {
 		return customerSurname;
 	}

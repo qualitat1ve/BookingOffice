@@ -1,7 +1,6 @@
 package com.kukushkin.booking.office.dao;
 
 import java.sql.Date;
-import java.sql.SQLException;
 import java.util.List;
 
 import com.kukushkin.booking.office.entity.Flight;
@@ -9,7 +8,6 @@ import com.kukushkin.booking.office.entity.Flight;
 import javax.persistence.TypedQuery;
 
 public class FlightDaoImpl extends BaseDao<Flight> implements FlightDao {
-
 
     @Override
     protected Class<Flight> getRealClass() {
@@ -26,7 +24,9 @@ public class FlightDaoImpl extends BaseDao<Flight> implements FlightDao {
             typedQuery.setParameter(2, destinationPlace);
             availableList = typedQuery.getResultList();
         }
-        finally {getEntityManger().close();}
+        finally {
+            getEntityManger().close();
+        }
 
 		return availableList;
 	}

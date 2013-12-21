@@ -1,0 +1,46 @@
+create table FLIGHT
+(
+	ID integer not null GENERATED ALWAYS AS IDENTITY,
+	DATE_CREATED timestamp not null,
+	FLIGHTNUMBER varchar(50) not null,
+	DEPARTURE varchar(50) not null,
+	ARRIVAL varchar(50) not null,
+	DATE_DEPARTURE timestamp not null,
+	DATE_ARRIVAL timestamp not null,
+	TICKET_NUMBER integer not null,
+	TICKET_PRICE integer not null,
+	primary key (ID)
+);
+
+create table TICKET
+(
+	ID integer not null GENERATED ALWAYS AS IDENTITY,
+	FLIGHT_ID integer constraint FLIGHT_FK references FLIGHT,
+	STATUS smallint not null,
+	DATE_RESERVATION timestamp not null,
+	DATE_PAYMENT timestamp not null,
+	RESERVATION_ID integer constraint RESERVATION_FK references RESERVATION,
+	primary key (ID)
+);
+
+create table RESERVATION
+(
+	ID integer not null GENERATED ALWAYS AS IDENTITY,
+	CUSTOMER_SURNAME varchar(50) not null,
+	CUSTOMER_NAME varchar(50) not null,
+	CUSTOMER_MIDDLENAME varchar(50) not null,
+	CUSTOMER_ADDRESS varchar(50) not null,
+	primary key (ID)
+);
+
+create table ACCOUNT
+(
+	ID integer not null GENERATED ALWAYS AS IDENTITY,
+	LOGIN varchar(50) not null,
+	PASSWORD varchar(50) not null,
+	USER_SURNAME varchar(50) not null,
+	USER_NAME varchar(50) not null,
+	USER_MIDDLENAME varchar(50) not null,
+	USER_ROLE smallint not null,
+	primary key (ID)
+);

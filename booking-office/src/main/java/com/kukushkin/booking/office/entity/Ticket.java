@@ -11,21 +11,28 @@ public class Ticket implements Persistent {
 	private int id;
 	private int flightId;
 	private Status status;
-	
-	
-	public Ticket() {
+    private int reservationId;
+
+
+    public Ticket(int flightId) {
+        this.flightId = flightId;
         status = Status.FREE;
     }
-	
+
 	@Override
 	public int getId() {
 		return id;
 	}
-	
 	@Override
 	public void setId(int id) {
 		this.id = id;
 	}
+    public int getReservationId() {
+        return reservationId;
+    }
+    public void setReservationId(Integer reservationId) {
+        this.reservationId = reservationId;
+    }
 	public int getFlightId() {
 		return flightId;
 	}
