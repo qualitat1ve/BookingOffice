@@ -1,5 +1,7 @@
 package com.kukushkin.booking.office.entity;
 
+import com.kukushkin.booking.office.dao.TicketDao.Status;
+
 import javax.persistence.*;
 
 @Entity
@@ -8,10 +10,12 @@ public class Ticket implements Persistent {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	private int flightId;
-	private int status;
+	private Status status;
 	
 	
-	public Ticket() {}
+	public Ticket() {
+        status = Status.FREE;
+    }
 	
 	@Override
 	public int getId() {
@@ -28,10 +32,10 @@ public class Ticket implements Persistent {
 	public void setFlightId(int flightId) {
 		this.flightId = flightId;
 	}
-	public int getStatus() {
+	public Status getStatus() {
 		return status;
 	}
-	public void setStatus(int status) {
+	public void setStatus(Status status) {
 		this.status = status;
 	}
 }

@@ -1,8 +1,8 @@
 package com.kukushkin.booking.office.dao;
 
 
+import java.sql.Date;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 
 import com.kukushkin.booking.office.entity.Flight;

@@ -11,7 +11,11 @@ public class AccountDaoImpl extends BaseDao<Account> implements AccountDao {
 
     @Override
 	public void setPermissions(int accountId, int userRole) {
-		getEntityManger().getReference(Account.class, accountId).setUserRole(userRole);
+        getEntityManger().getTransaction().begin();
+        Account account = read(accountId);
+		account.setUserRole(userRole);
+        update(account);
+        getEntityManger().getTransaction().commit();
 	}
 
 	@Override
