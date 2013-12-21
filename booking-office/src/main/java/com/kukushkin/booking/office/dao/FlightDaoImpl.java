@@ -10,7 +10,7 @@ public class FlightDaoImpl extends BaseDao<Flight> implements FlightDao {
 
 
     @Override
-    protected Class<Flight> getType() {
+    protected Class<Flight> getRealClass() {
         return Flight.class;
     }
 

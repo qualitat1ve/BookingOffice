@@ -5,16 +5,13 @@ import com.kukushkin.booking.office.entity.Account;
 public class AccountDaoImpl extends BaseDao<Account> implements AccountDao {
 
     @Override
-    protected Class<Account> getType() {
+    protected Class<Account> getRealClass() {
         return Account.class;
     }
 
     @Override
 	public void setPermissions(int accountId, int userRole) {
-        getEntityManger().getTransaction().begin();
-		getEntityManger().find(Account.class, accountId).setUserRole(userRole);
-        getEntityManger().getTransaction().commit();
-		
+		getEntityManger().getReference(Account.class, accountId).setUserRole(userRole);
 	}
 
 	@Override

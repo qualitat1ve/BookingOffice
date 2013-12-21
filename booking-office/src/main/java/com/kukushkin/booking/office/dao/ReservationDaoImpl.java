@@ -20,7 +20,7 @@ public class ReservationDaoImpl extends BaseDao<Reservation> implements Reservat
 	}
 
     @Override
-    protected Class<Reservation> getType() {
+    protected Class<Reservation> getRealClass() {
         return Reservation.class;
     }
 }

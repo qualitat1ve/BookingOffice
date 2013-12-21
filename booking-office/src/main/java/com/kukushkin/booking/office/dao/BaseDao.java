@@ -18,8 +18,11 @@ public abstract class BaseDao<T extends Persistent> implements Dao<T> {
         return entityManager;
 	}
 	
-	public void add(T persistent) {
+	public T add(T persistent) {
 		getEntityManger().persist(persistent);
+        getEntityManger().flush();
+        getEntityManger().refresh(persistent);
+        return persistent;
 	}
 	
 	public void delete(T persistent) {
@@ -27,13 +30,16 @@ public abstract class BaseDao<T extends Persistent> implements Dao<T> {
 	}
 
 	public void delete(int id) {
-        getEntityManger().getTransaction().begin();
-        getEntityManger().remove(getEntityManger().find(getType(), id));
+        getEntityManger().remove(getEntityManger().getReference(getRealClass(), id));
 	}
 
-    public void update(T persistent) {
-        getEntityManger().persist(persistent);
+    public T update(T persistent) {
+        return getEntityManger().merge(persistent);
     }
 
-    protected abstract Class<T> getType();
+    public T read(int id) {
+        return (T) getEntityManger().find(getRealClass(), id);
+    }
+
+    protected abstract Class<T> getRealClass();
 }

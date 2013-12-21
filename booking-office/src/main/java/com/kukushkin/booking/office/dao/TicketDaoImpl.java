@@ -20,7 +20,7 @@ public class TicketDaoImpl extends BaseDao<Ticket> implements TicketDao {
 	}
 
     @Override
-    protected Class<Ticket> getType() {
+    protected Class<Ticket> getRealClass() {
         return Ticket.class;
     }
 }

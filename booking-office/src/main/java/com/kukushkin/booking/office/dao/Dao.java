@@ -6,8 +6,9 @@ import com.kukushkin.booking.office.entity.Persistent;
 
 public interface Dao<T extends Persistent> {
 	
-	void add(T persistent) throws SQLException;
-	void update(T persistent) throws SQLException;
+	T add(T persistent) throws SQLException;
+	T update(T persistent) throws SQLException;
 	void delete(int id) throws SQLException;
 	void delete(T persistent) throws SQLException;
+    T read(int id) throws SQLException;
 }
