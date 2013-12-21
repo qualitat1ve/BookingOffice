@@ -1,8 +1,10 @@
 package com.kukushkin.booking.office.services;
 
 import com.kukushkin.booking.office.dao.FlightDao;
+import com.kukushkin.booking.office.dao.ReservationDao;
 import com.kukushkin.booking.office.dao.TicketDao;
 import com.kukushkin.booking.office.entity.Flight;
+import com.kukushkin.booking.office.entity.Reservation;
 import com.kukushkin.booking.office.entity.Ticket;
 import java.sql.SQLException;
 
@@ -10,6 +12,7 @@ public class TimeTableManagementService {
 
     private FlightDao flightDao;
     private TicketDao ticketDao;
+    private ReservationDao reservationDao;
 
     public void addFlightToTimetable(Flight flight) {
         try {
@@ -65,7 +68,10 @@ public class TimeTableManagementService {
                 ticket.setReservationId(null);
                 ticketDao.update(ticket);
             }
-        }catch (SQLException e) {
+            for (Reservation reservation : reservationDao.findExpired()) {
+                reservationDao.delete(reservation);
+            }
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

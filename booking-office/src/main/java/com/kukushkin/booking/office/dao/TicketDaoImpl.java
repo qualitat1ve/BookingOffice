@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import com.kukushkin.booking.office.entity.Reservation;
 import com.kukushkin.booking.office.entity.Ticket;
 
 import javax.persistence.TypedQuery;
@@ -26,12 +25,24 @@ public class TicketDaoImpl extends BaseDao<Ticket> implements TicketDao {
 
     @Override
     public void deleteTicketsOfCanceledFlight(int flightId) throws SQLException {
-
+       removeSomeTicketsFromFlight(flightId, Integer.MAX_VALUE);
     }
 
     @Override
     public void removeSomeTicketsFromFlight(int flightId, int ticketsCount) throws SQLException {
-        String query = "";
+        String query = "SELECT t FROM Ticket t, Flight f WHERE t.flightId = ?1";
+        TypedQuery<Ticket> typedQuery = getEntityManger().createQuery(query, Ticket.class);
+        List<Ticket> ticketList = null;
+        try {
+            typedQuery.setParameter(1, flightId);
+            typedQuery.setMaxResults(ticketsCount);
+            ticketList = typedQuery.getResultList();
+            for (Ticket ticket : ticketList) {
+                delete(ticket);
+            }
+        } finally {
+            getEntityManger().close();
+        }
 
     }
 
@@ -49,13 +60,10 @@ public class TicketDaoImpl extends BaseDao<Ticket> implements TicketDao {
     @Override
     public List<Ticket> getExpiredTickets() {
         String query = "SELECT t FROM Ticket t, Reservation r where r.id = t.reservationId and r.reservationDate BEFORE ?1";
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DAY_OF_YEAR, -3);
-        java.sql.Date deadLine = new java.sql.Date(calendar.getTime().getTime());
         List<Ticket> ticketsList = null;
         TypedQuery<Ticket> typedQuery = getEntityManger().createQuery(query, Ticket.class);
         try {
-            typedQuery.setParameter(1, deadLine);
+            typedQuery.setParameter(1, getDeadlineDate());
             ticketsList = typedQuery.getResultList();
         }
         finally {
@@ -63,6 +71,8 @@ public class TicketDaoImpl extends BaseDao<Ticket> implements TicketDao {
         }
         return ticketsList;
     }
+
+
 
     @Override
     protected Class<Ticket> getRealClass() {
