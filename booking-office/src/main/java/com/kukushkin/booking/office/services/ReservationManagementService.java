@@ -1,8 +1,6 @@
 package com.kukushkin.booking.office.services;
 
-import com.kukushkin.booking.office.dao.FlightDao;
-import com.kukushkin.booking.office.dao.ReservationDao;
-import com.kukushkin.booking.office.dao.TicketDao;
+import com.kukushkin.booking.office.dao.*;
 import com.kukushkin.booking.office.entity.Flight;
 import com.kukushkin.booking.office.entity.Reservation;
 import com.kukushkin.booking.office.entity.Ticket;
@@ -16,6 +14,12 @@ public class ReservationManagementService {
     private ReservationDao reservationDao;
     private TicketDao ticketDao;
     private FlightDao flightDao;
+
+    public ReservationManagementService() {
+        reservationDao = new ReservationDaoImpl();
+        ticketDao = new TicketDaoImpl();
+        flightDao = new FlightDaoImpl();
+    }
 
     public void createReservation(Reservation reservation, Ticket... tickets) {
         try {

@@ -11,7 +11,7 @@
 		<class>com.kukushkin.booking.office.entity.Ticket</class>
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:derby:/home/qualitat1ve/Workplace/eclipse projects/BookingOfficeBD;create=true" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:derby:/home/qualitat1ve/Workplace/eclipse projects/BookingOffice/TESTDB;create=true" />
 			<property name="eclipselink.ddl-generation.output-mode"	value="database" />
 		</properties>
 	</persistence-unit>

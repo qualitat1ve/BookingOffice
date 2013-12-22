@@ -1,8 +1,6 @@
 package com.kukushkin.booking.office.services;
 
-import com.kukushkin.booking.office.dao.FlightDao;
-import com.kukushkin.booking.office.dao.ReservationDao;
-import com.kukushkin.booking.office.dao.TicketDao;
+import com.kukushkin.booking.office.dao.*;
 import com.kukushkin.booking.office.entity.Flight;
 import com.kukushkin.booking.office.entity.Reservation;
 import com.kukushkin.booking.office.entity.Ticket;
@@ -13,6 +11,12 @@ public class TimeTableManagementService {
     private FlightDao flightDao;
     private TicketDao ticketDao;
     private ReservationDao reservationDao;
+
+    public TimeTableManagementService() {
+        flightDao = new FlightDaoImpl();
+        ticketDao = new TicketDaoImpl();
+        reservationDao = new ReservationDaoImpl();
+    }
 
     public void addFlightToTimetable(Flight flight) {
         try {

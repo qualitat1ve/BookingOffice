@@ -8,7 +8,7 @@ import com.kukushkin.booking.office.entity.Persistent;
 import java.util.Calendar;
 
 public abstract class BaseDao<T extends Persistent> implements Dao<T> {
-	private final String UNIT_NAME = "BookingOffice-prod";
+	private final String UNIT_NAME = "BookingOffice-test";
 	private EntityManagerFactory factory;
     private EntityManager entityManager;
     private final int RESERVATION_LIFE_TIME = 3;
@@ -22,14 +22,20 @@ public abstract class BaseDao<T extends Persistent> implements Dao<T> {
 	}
 	
 	public T add(T persistent) {
+		
+		//TODO: All transactions should be placed in services!
+		getEntityManger().getTransaction().begin();
 		getEntityManger().persist(persistent);
         getEntityManger().flush();
         getEntityManger().refresh(persistent);
+        getEntityManger().getTransaction().commit();
         return persistent;
 	}
 	
 	public void delete(T persistent) {
+		getEntityManger().getTransaction().begin();
 		getEntityManger().remove(persistent);
+		getEntityManger().getTransaction().commit();
 	}
 
 	public void delete(int id) {
@@ -37,7 +43,10 @@ public abstract class BaseDao<T extends Persistent> implements Dao<T> {
 	}
 
     public T update(T persistent) {
-        return getEntityManger().merge(persistent);
+    	getEntityManger().getTransaction().begin();
+        getEntityManger().merge(persistent);
+        getEntityManger().getTransaction().commit();
+        return persistent;
     }
 
     public T read(int id) {

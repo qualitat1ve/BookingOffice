@@ -1,12 +1,17 @@
 package com.kukushkin.booking.office.services;
 
 import com.kukushkin.booking.office.dao.AccountDao;
+import com.kukushkin.booking.office.dao.AccountDaoImpl;
 import com.kukushkin.booking.office.entity.Account;
 
 import java.sql.SQLException;
 
 public class AccountManagementService {
     private AccountDao accountDao;
+
+    public AccountManagementService() {
+        accountDao = new AccountDaoImpl();
+    }
 
     public void createAccount(Account account) {
         try {
