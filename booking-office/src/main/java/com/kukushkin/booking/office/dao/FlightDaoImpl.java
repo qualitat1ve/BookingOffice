@@ -1,6 +1,6 @@
 package com.kukushkin.booking.office.dao;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 import com.kukushkin.booking.office.entity.Flight;
@@ -15,7 +15,7 @@ public class FlightDaoImpl extends BaseDao<Flight> implements FlightDao {
     }
 
 	@Override
-	public List<Flight> findFlights(Date departureDate, String destinationPlace) {
+	public List<Flight> findFlights(Timestamp departureDate, String destinationPlace) {
 		String query = "SELECT f FROM Flight f WHERE f.departureDate = ?1 and f.arrival = ?2";
 		TypedQuery<Flight> typedQuery = getEntityManger().createQuery(query,
 				this.getRealClass());

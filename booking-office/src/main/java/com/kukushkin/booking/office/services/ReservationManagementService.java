@@ -7,6 +7,7 @@ import com.kukushkin.booking.office.entity.Ticket;
 
 import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.List;
 
 
@@ -43,7 +44,7 @@ public class ReservationManagementService {
         }
     }
 
-    public List<Flight> findFlightsByCriteria(Date departureDate, String destination) {
+    public List<Flight> findFlightsByCriteria(Timestamp departureDate, String destination) {
         List<Flight> flights = null;
         try {
             flights = flightDao.findFlights(departureDate, destination);
@@ -65,7 +66,7 @@ public class ReservationManagementService {
 
     public void sellTickets(Reservation reservation) {
         try {
-            reservation.setPaymentDate(new java.sql.Date(new java.util.Date().getTime()));
+            reservation.setPaymentDate(new java.sql.Timestamp(new java.util.Date().getTime()));
             reservationDao.update(reservation);
             for (Ticket ticket : ticketDao.getTicketsForReservation(reservation.getId())) {
                 ticket.setStatus(TicketDao.Status.SOLD);

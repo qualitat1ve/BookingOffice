@@ -1,6 +1,6 @@
 package com.kukushkin.booking.office.entity;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.*;
 
@@ -9,12 +9,12 @@ public class Flight implements Persistent {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-	private Date creationDate;
+	private Timestamp creationDate;
 	private String flightNumber;
 	private String departure;
 	private String arrival;
-	private Date departureDate;
-	private Date arrivalDate;
+	private Timestamp departureDate;
+	private Timestamp arrivalDate;
 	private int ticketNumber;
 	private double ticketPrice;
 	
@@ -29,10 +29,10 @@ public class Flight implements Persistent {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public Date getCreationDate() {
+	public Timestamp getCreationDate() {
 		return creationDate;
 	}
-	public void setCreationDate(Date creationDate) {
+	public void setCreationDate(Timestamp creationDate) {
 		this.creationDate = creationDate;
 	}
 	public String getFlightNumber() {
@@ -53,16 +53,16 @@ public class Flight implements Persistent {
 	public void setArrival(String arrival) {
 		this.arrival = arrival;
 	}
-	public Date getDepartureDate() {
+	public Timestamp getDepartureDate() {
 		return departureDate;
 	}
-	public void setDepartureDate(Date departureDate) {
+	public void setDepartureDate(Timestamp departureDate) {
 		this.departureDate = departureDate;
 	}
-	public Date getArrivalDate() {
+	public Timestamp getArrivalDate() {
 		return arrivalDate;
 	}
-	public void setArrivalDate(Date arrivalDate) {
+	public void setArrivalDate(Timestamp arrivalDate) {
 		this.arrivalDate = arrivalDate;
 	}
 	public int getTicketNumber() {

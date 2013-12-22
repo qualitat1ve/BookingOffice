@@ -1,6 +1,6 @@
 package com.kukushkin.booking.office.entity;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.*;
 
@@ -13,11 +13,11 @@ public class Reservation implements Persistent {
 	private String customerName;
 	private String customerMiddlename;
 	private String customerAddress;
-	private Date reservationDate;
-	private Date paymentDate;
+	private Timestamp reservationDate;
+	private Timestamp paymentDate;
 	
 	public Reservation() {
-        reservationDate = new Date(new java.util.Date().getTime());
+        reservationDate = new Timestamp(new java.util.Date().getTime());
     }
 	
 	@Override
@@ -54,16 +54,16 @@ public class Reservation implements Persistent {
 	public void setCustomerAddress(String customerAddress) {
 		this.customerAddress = customerAddress;
 	}
-	public Date getReservationDate() {
+	public Timestamp getReservationDate() {
 		return reservationDate;
 	}
-	public void setReservationDate(Date reservationDate) {
+	public void setReservationDate(Timestamp reservationDate) {
 		this.reservationDate = reservationDate;
 	}
-	public Date getPaymentDate() {
+	public Timestamp getPaymentDate() {
 		return paymentDate;
 	}
-	public void setPaymentDate(Date paymentDate) {
+	public void setPaymentDate(Timestamp paymentDate) {
 		this.paymentDate = paymentDate;
 	}
 }
