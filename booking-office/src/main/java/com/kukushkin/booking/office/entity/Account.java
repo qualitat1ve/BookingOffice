@@ -20,6 +20,8 @@ public class Account implements Persistent {
         password = login;
     }
 	
+	public Account() {}
+	
 	@Override
 	public int getId() {
 		return id;

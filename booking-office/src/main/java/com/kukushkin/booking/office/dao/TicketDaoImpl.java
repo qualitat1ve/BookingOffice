@@ -28,22 +28,17 @@ public class TicketDaoImpl extends BaseDao<Ticket> implements TicketDao {
     }
 
     @Override
-    public void removeSomeTicketsFromFlight(int flightId, int ticketsCount) throws SQLException {
-        String query = "SELECT t FROM Ticket t, Flight f WHERE t.flightId = ?1";
-        TypedQuery<Ticket> typedQuery = getEntityManger().createQuery(query, Ticket.class);
-        List<Ticket> ticketList = null;
-        try {
-            typedQuery.setParameter(1, flightId);
-            typedQuery.setMaxResults(ticketsCount);
-            ticketList = typedQuery.getResultList();
-            for (Ticket ticket : ticketList) {
-                delete(ticket);
-            }
-        } finally {
-            getEntityManger().close();
-        }
-
-    }
+	public void removeSomeTicketsFromFlight(int flightId, int ticketsCount) throws SQLException {
+		String query = "SELECT t FROM Ticket t, Flight f WHERE t.flightId = ?1";
+		TypedQuery<Ticket> typedQuery = getEntityManger().createQuery(query, Ticket.class);
+		List<Ticket> ticketList = null;
+		typedQuery.setParameter(1, flightId);
+		typedQuery.setMaxResults(ticketsCount);
+		ticketList = typedQuery.getResultList();
+		for (Ticket ticket : ticketList) {
+			delete(ticket);
+		}
+	}
 
     @Override
 	public List<Ticket> selectByConditions(Date startDate, Date endDate, String destination) throws SQLException {
@@ -60,15 +55,10 @@ public class TicketDaoImpl extends BaseDao<Ticket> implements TicketDao {
     public List<Ticket> getExpiredTickets() {
         String query = "SELECT t FROM Ticket t, Reservation r where r.id = t.reservationId and r.reservationDate BEFORE ?1";
         List<Ticket> ticketsList = null;
-        TypedQuery<Ticket> typedQuery = getEntityManger().createQuery(query, Ticket.class);
-        try {
-            typedQuery.setParameter(1, getDeadlineDate());
-            ticketsList = typedQuery.getResultList();
-        }
-        finally {
-            getEntityManger().close();
-        }
-        return ticketsList;
+		TypedQuery<Ticket> typedQuery = getEntityManger().createQuery(query, Ticket.class);
+		typedQuery.setParameter(1, getDeadlineDate());
+		ticketsList = typedQuery.getResultList();
+		return ticketsList;
     }
 
     @Override
@@ -76,13 +66,8 @@ public class TicketDaoImpl extends BaseDao<Ticket> implements TicketDao {
         String query = "SELECT t FROM Ticket t WHERE t.reservationId = ?1";
         List<Ticket> ticketsList = null;
         TypedQuery<Ticket> typedQuery = getEntityManger().createQuery(query, Ticket.class);
-        try {
-            typedQuery.setParameter(1, reservationId);
-            ticketsList = typedQuery.getResultList();
-        }
-        finally {
-            getEntityManger().close();
-        }
+        typedQuery.setParameter(1, reservationId);
+        ticketsList = typedQuery.getResultList();
         return ticketsList;
     }
 

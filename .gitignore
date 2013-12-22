@@ -28,6 +28,8 @@ local.properties
 *.iml
 /out
 */target/**
+/TESTDB
+derby.log
 
 #Temporary files
 *~

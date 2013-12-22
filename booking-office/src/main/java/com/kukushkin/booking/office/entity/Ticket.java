@@ -18,6 +18,8 @@ public class Ticket implements Persistent {
         this.flightId = flightId;
         status = Status.FREE;
     }
+    
+    public Ticket() {}
 
 	@Override
 	public int getId() {

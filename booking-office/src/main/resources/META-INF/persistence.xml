@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence    
                 http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
 	version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
-	<persistence-unit name="BookingOffice-prod" transaction-type="RESOURCE_LOCAL">
+	<persistence-unit name="BookingOffice-test" transaction-type="RESOURCE_LOCAL">
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 		<class>com.kukushkin.booking.office.entity.Account</class>
 		<class>com.kukushkin.booking.office.entity.Flight</class>
