@@ -22,6 +22,8 @@ public interface TicketDao extends Dao<Ticket> {
 
     List<Ticket> getExpiredTickets();
 
+    List<Ticket> getTicketsForReservation(int reservationId);
+
 
     //TODO: Status can be used instead of int to set Ticket's status
     public enum Status {FREE, BOOKED, SOLD}

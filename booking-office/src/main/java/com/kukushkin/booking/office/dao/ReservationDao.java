@@ -7,4 +7,5 @@ import com.kukushkin.booking.office.entity.Reservation;
 
 public interface ReservationDao extends Dao<Reservation> {
 	List<Reservation> findExpired() throws SQLException;
+    List<Reservation> findNonExpired() throws SQLException;
 }

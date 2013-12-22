@@ -8,13 +8,17 @@ public class Account implements Persistent {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	private String login;
-	private int password;
+	private String password;
 	private String userName;
 	private String userSurname;
 	private String userMiddlename;
 	private int userRole;
+    public static final String INACTIVE_ACCOUNT_STATUS = "Inactive";
 	
-	public Account() {}
+	public Account(String login) {
+        this.login = login;
+        password = login;
+    }
 	
 	@Override
 	public int getId() {
@@ -34,11 +38,11 @@ public class Account implements Persistent {
 		this.login = login;
 	}
 
-	public int getPassword() {
+	public String getPassword() {
 		return password;
 	}
 
-	public void setPassword(int password) {
+	public void setPassword(String password) {
 		this.password = password;
 	}
 

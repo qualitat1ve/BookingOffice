@@ -16,7 +16,9 @@ public class Reservation implements Persistent {
 	private Date reservationDate;
 	private Date paymentDate;
 	
-	public Reservation() {}
+	public Reservation() {
+        reservationDate = new Date(new java.util.Date().getTime());
+    }
 	
 	@Override
 	public int getId() {

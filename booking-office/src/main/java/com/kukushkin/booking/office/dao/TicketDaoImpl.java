@@ -1,7 +1,6 @@
 package com.kukushkin.booking.office.dao;
 
 import java.sql.SQLException;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -72,6 +71,20 @@ public class TicketDaoImpl extends BaseDao<Ticket> implements TicketDao {
         return ticketsList;
     }
 
+    @Override
+    public List<Ticket> getTicketsForReservation(int reservationId) {
+        String query = "SELECT t FROM Ticket t WHERE t.reservationId = ?1";
+        List<Ticket> ticketsList = null;
+        TypedQuery<Ticket> typedQuery = getEntityManger().createQuery(query, Ticket.class);
+        try {
+            typedQuery.setParameter(1, reservationId);
+            ticketsList = typedQuery.getResultList();
+        }
+        finally {
+            getEntityManger().close();
+        }
+        return ticketsList;
+    }
 
 
     @Override
