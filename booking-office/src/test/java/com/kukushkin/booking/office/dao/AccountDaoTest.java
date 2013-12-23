@@ -3,6 +3,7 @@ package com.kukushkin.booking.office.dao;
 import static org.junit.Assert.*;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class AccountDaoTest extends BaseTest {
@@ -18,39 +19,34 @@ public class AccountDaoTest extends BaseTest {
 		accountDaoImpl = null;
 	}
 
+    @Ignore
 	@Test
 	public void testSetPermissions() {
-		fail("Not yet implemented");
 	}
 
+    @Ignore
 	@Test
 	public void testAddAdditionalPermissions() {
-		fail("Not yet implemented");
 	}
 
+    @Ignore
 	@Test
 	public void testAdd() {
-		fail("Not yet implemented");
 	}
 
+    @Ignore
 	@Test
-	public void testDeleteT() {
-		fail("Not yet implemented");
+	public void testDelete() {
 	}
 
-	@Test
-	public void testDeleteInt() {
-		fail("Not yet implemented");
-	}
-
+    @Ignore
 	@Test
 	public void testUpdate() {
-		fail("Not yet implemented");
 	}
 
+    @Ignore
 	@Test
 	public void testRead() {
-		fail("Not yet implemented");
 	}
 
 }

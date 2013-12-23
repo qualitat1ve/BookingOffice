@@ -23,21 +23,24 @@ public class TicketDaoImpl extends BaseDao<Ticket> implements TicketDao {
     }
 
     @Override
-    public void deleteTicketsOfCanceledFlight(int flightId) throws SQLException {
-       removeSomeTicketsFromFlight(flightId, Integer.MAX_VALUE);
+    public List<Ticket> deleteTicketsOfCanceledFlight(int flightId) throws SQLException {
+       return removeSomeTicketsFromFlight(flightId, Integer.MAX_VALUE);
     }
 
     @Override
-	public void removeSomeTicketsFromFlight(int flightId, int ticketsCount) throws SQLException {
-		String query = "SELECT t FROM Ticket t, Flight f WHERE t.flightId = ?1";
+	public List<Ticket> removeSomeTicketsFromFlight(int flightId, int ticketsCount) throws SQLException {
+		String query = "SELECT t FROM Ticket t, Flight f WHERE t.flightId = ?1 and t.status=?2";
 		TypedQuery<Ticket> typedQuery = getEntityManger().createQuery(query, Ticket.class);
 		List<Ticket> ticketList = null;
 		typedQuery.setParameter(1, flightId);
+        typedQuery.setParameter(2, Status.FREE);
 		typedQuery.setMaxResults(ticketsCount);
 		ticketList = typedQuery.getResultList();
+
 		for (Ticket ticket : ticketList) {
 			delete(ticket);
 		}
+        return ticketList;
 	}
 
     @Override
@@ -53,7 +56,7 @@ public class TicketDaoImpl extends BaseDao<Ticket> implements TicketDao {
 
     @Override
     public List<Ticket> getExpiredTickets() {
-        String query = "SELECT t FROM Ticket t, Reservation r where r.id = t.reservationId and r.reservationDate BEFORE ?1";
+        String query = "SELECT t FROM Ticket t, Reservation r where r.id = t.reservationId and r.reservationDate < ?1";
         List<Ticket> ticketsList = null;
 		TypedQuery<Ticket> typedQuery = getEntityManger().createQuery(query, Ticket.class);
 		typedQuery.setParameter(1, getDeadlineDate());

@@ -10,11 +10,12 @@ import com.kukushkin.booking.office.entity.Ticket;
 
 public interface TicketDao extends Dao<Ticket> {
 
+    //TODO: can be removed. Update can be used instead of it.
 	void updateTicketsStatus(Map<Integer, Status> ticketsToUpdate) throws SQLException;
 
-	void deleteTicketsOfCanceledFlight(int flightId) throws SQLException;
+	List<Ticket> deleteTicketsOfCanceledFlight(int flightId) throws SQLException;
 
-    void removeSomeTicketsFromFlight(int flightId, int ticketsCount) throws SQLException;
+    List<Ticket> removeSomeTicketsFromFlight(int flightId, int ticketsCount) throws SQLException;
 
 	List<Ticket> selectByConditions(Date startDate, Date endDate, String destination) throws SQLException;
 
@@ -24,7 +25,5 @@ public interface TicketDao extends Dao<Ticket> {
 
     List<Ticket> getTicketsForReservation(int reservationId);
 
-
-    //TODO: Status can be used instead of int to set Ticket's status
     public enum Status {FREE, BOOKED, SOLD}
 }

@@ -18,22 +18,22 @@ import com.kukushkin.booking.office.entity.Flight;
 
 public class FlightDaoTest extends BaseTest {
 	
-	private static FlightDaoImpl flightDaoImpl;
+	private static FlightDaoImpl flightDao;
 	private static GregorianCalendar calendar;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() {
-		flightDaoImpl = new FlightDaoImpl();
+		flightDao = new FlightDaoImpl();
 	}
 	
 	@AfterClass
-	public static void tearDownAfterClass() {
-		flightDaoImpl = null;
+	public static void tearDownClass() {
+		flightDao = null;
 		calendar = null;
 	}
 	
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		calendar = new GregorianCalendar();
 	}
 	
@@ -47,7 +47,7 @@ public class FlightDaoTest extends BaseTest {
 		calendar.set(Calendar.MINUTE, 40);
 		calendar.set(Calendar.SECOND, 0);
 		calendar.set(Calendar.MILLISECOND, 0);
-		List<Flight> flightsList = flightDaoImpl.findFlights(new java.sql.Timestamp(calendar.getTime().getTime()), "Stambul");
+		List<Flight> flightsList = flightDao.findFlights(new java.sql.Timestamp(calendar.getTime().getTime()), "Stambul");
 		assertTrue(flightsList.size() == 1);
 	}
 
@@ -63,8 +63,8 @@ public class FlightDaoTest extends BaseTest {
 		flight.setDepartureDate(new Timestamp(new java.util.Date().getTime()));
 		flight.setTicketNumber(15);
 		flight.setTicketPrice(10);
-		flightDaoImpl.add(flight);
-		Flight savedFlight = flightDaoImpl.read(flight.getId());
+		flightDao.add(flight);
+		Flight savedFlight = flightDao.read(flight.getId());
 		
 		assertTrue(savedFlight != null);
 		assertTrue(flight.getCreationDate().equals(savedFlight.getCreationDate()));
@@ -79,21 +79,21 @@ public class FlightDaoTest extends BaseTest {
 	
 	@Test
 	public void testDelete() {
-		Flight flight = flightDaoImpl.read(4);
+		Flight flight = flightDao.read(4);
 		assertTrue(flight != null);
-		flightDaoImpl.delete(flight);
-		Flight deletedFlight = flightDaoImpl.read(flight.getId());
+		flightDao.delete(flight);
+		Flight deletedFlight = flightDao.read(flight.getId());
 		assertTrue(deletedFlight == null);
 	}
 
 	@Test
 	public void testUpdate() {
-		Flight flight = flightDaoImpl.read(1);
+		Flight flight = flightDao.read(1);
 		int oldTicketsNumber = flight.getTicketNumber();
 		int newTicketNumber = oldTicketsNumber++;
 		flight.setTicketNumber(newTicketNumber);
-		flightDaoImpl.update(flight);
-		Flight updatedFlight = flightDaoImpl.read(1);
+		flightDao.update(flight);
+		Flight updatedFlight = flightDao.read(1);
 		assertFalse(updatedFlight.getTicketNumber() == oldTicketsNumber);
 		assertTrue(updatedFlight.getTicketNumber() == newTicketNumber);
 	}
@@ -101,7 +101,7 @@ public class FlightDaoTest extends BaseTest {
 	@Test
 	public void testRead() {
 		Flight flight = null;
-		flight = flightDaoImpl.read(1);
+		flight = flightDao.read(1);
 		assertTrue(flight != null);
 	}
 

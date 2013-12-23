@@ -111,7 +111,7 @@ public class BaseTest {
 		
 		
 	}
-	
+
 	private static void createAccountsTable(Statement statement){
 		String createAccountsTableQuery = "create table ACCOUNT(ID integer not null GENERATED ALWAYS AS IDENTITY,"
 			    + "LOGIN varchar(50) not null,"
@@ -119,7 +119,8 @@ public class BaseTest {
 			    + "USERSURNAME varchar(50) not null,"
 			    + "USERNAME varchar(50) not null,"
 			    + "USERMIDDLENAME varchar(50) not null,"
-			    + "ISACTIVE smallint not null,"
+                + "USERROLE smallint not null,"
+			    + "ISACTIVE boolean not null,"
 			    + "primary key (ID))";
 		try {
 			statement.execute(createAccountsTableQuery);
@@ -177,17 +178,17 @@ public class BaseTest {
 		}
 	}
 
-	private static void fillTicketTable(Statement statement) {
-		String firstTicketRow = "INSERT INTO TICKET (FLIGHTID, STATUS, RESERVATIONID) VALUES (1, 3, 1),"
-				+ "(1, 3, 1), (1, 2, 3), (1, 2, 3), (1, 1, null), (1, 1, null), (1, 1, null), (1, 1, null), (1, 1, null), (1, 1, null)";
-		String secondTicketRow = "INSERT INTO TICKET (FLIGHTID, STATUS, RESERVATIONID) VALUES (2, 3, 1),"
-				+ "(2, 3, 2), (2, 2, 3), (2, 1, null), (2, 1, null)";
-		String thirdTicketRow = "INSERT INTO TICKET (FLIGHTID, STATUS, RESERVATIONID) VALUES (3, 3, 2),"
-				+ "(3, 1, 2)";
+    private static void fillTicketTable(Statement statement) {
+		String firstFlightTickets = "INSERT INTO TICKET (FLIGHTID, STATUS, RESERVATIONID) VALUES (1, 2, 1),"
+				+ "(1, 2, 1), (1, 1, 3), (1, 1, 3), (1, 0, null), (1, 0, null), (1, 0, null), (1, 0, null), (1, 0, null), (1, 0, null)";
+		String secondFlightTickets = "INSERT INTO TICKET (FLIGHTID, STATUS, RESERVATIONID) VALUES (2, 2, 1),"
+				+ "(2, 2, 2), (2, 1, 3), (2, 0, null), (2, 0, null)";
+		String thirdFlightTickets = "INSERT INTO TICKET (FLIGHTID, STATUS, RESERVATIONID) VALUES (3, 2, 2),"
+				+ "(3, 0, 2)";
 		try {
-			statement.execute(firstTicketRow);
-			statement.execute(secondTicketRow);
-			statement.execute(thirdTicketRow);
+			statement.execute(firstFlightTickets);
+			statement.execute(secondFlightTickets);
+			statement.execute(thirdFlightTickets);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -196,6 +197,16 @@ public class BaseTest {
 	}
 	
 	private static void fillAccountTable(Statement statement) {
-		
+
+        String firstAccountRow = "INSERT INTO ACCOUNT (LOGIN, PASSWORD, USERSURNAME, USERNAME, USERMIDDLENAME, USERROLE, ISACTIVE) VALUES ('1stUserLogin', 'tempPassword', 'Surname1', 'Name1', 'Middlename1', 1, TRUE)";
+        String secondAccountRow = "INSERT INTO ACCOUNT (LOGIN, PASSWORD, USERSURNAME, USERNAME, USERMIDDLENAME, USERROLE, ISACTIVE) VALUES ('2ndUserLogin', 'tempPassword', 'Surname2', 'Name2', 'Middlename2', 2, TRUE)";
+        String thirdAccountRow = "INSERT INTO ACCOUNT (LOGIN, PASSWORD, USERSURNAME, USERNAME, USERMIDDLENAME, USERROLE, ISACTIVE) VALUES ('3dAccountLogin', 'tempPassword', 'Surname3', 'Name3', 'Middlename3', 3, TRUE)";
+        try {
+            statement.execute(firstAccountRow);
+            statement.execute(secondAccountRow);
+            statement.execute(thirdAccountRow);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 	}
 }

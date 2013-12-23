@@ -15,7 +15,7 @@ public class ReservationDaoImpl extends BaseDao<Reservation> implements Reservat
 
 	@Override
 	public List<Reservation> findExpired() throws SQLException {
-		String query = "SELECT r FROM Reservation r WHERE r.reservationDate BEFORE ?1";
+		String query = "SELECT r FROM Reservation r WHERE r.reservationDate < ?1 and r.paymentDate=null";
 		List<Reservation> reservationList = null;
 		TypedQuery<Reservation> typedQuery = getEntityManger().createQuery(query, Reservation.class);
 		typedQuery.setParameter(1, getDeadlineDate());
@@ -25,7 +25,7 @@ public class ReservationDaoImpl extends BaseDao<Reservation> implements Reservat
 
     @Override
     public List<Reservation> findNonExpired() throws SQLException {
-        String query = "Select r FROM Reservation r WHERE r.reservationDate AFTER ?1";
+        String query = "Select r FROM Reservation r WHERE r.reservationDate > ?1";
         List<Reservation> reservationList = null;
         TypedQuery<Reservation> typedQuery = getEntityManger().createQuery(query, Reservation.class);
         typedQuery.setParameter(1, getDeadlineDate());

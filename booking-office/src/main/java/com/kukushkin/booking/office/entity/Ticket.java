@@ -29,7 +29,7 @@ public class Ticket implements Persistent {
 	public void setId(int id) {
 		this.id = id;
 	}
-    public int getReservationId() {
+    public Integer getReservationId() {
         return reservationId;
     }
     public void setReservationId(Integer reservationId) {
