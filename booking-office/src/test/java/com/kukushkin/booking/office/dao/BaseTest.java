@@ -10,7 +10,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
 public class BaseTest {
-	private static String DATABASE_PATH = "/home/qualitat1ve/Workplace/eclipse projects/BookingOffice/TESTDB";
+	private static String DATABASE_PATH = "../TESTDB";
 	private static Connection connection = null;
 	private static Statement statement = null;
 
@@ -24,9 +24,18 @@ public class BaseTest {
 	@AfterClass
 	public static void tearDownClass() throws Exception {
 		dropTables();
+        closeConnection();
 	}
-	
-	private static boolean createTables() {
+
+    private static void closeConnection() {
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static boolean createTables() {
 		createAccountsTable(statement);
 		createFlightsTable(statement);
 		createReservationsTable(statement);
@@ -34,7 +43,7 @@ public class BaseTest {
 		return false;
 	}
 	
-	private static boolean dropTables() {
+	private static void dropTables() {
 		String dropTableTicketQuery = "drop table TICKET";
 		String dropTableReservationQuery = "drop table RESERVATION";
 		String dropTableFlightQuery = "drop table FLIGHT";
@@ -46,14 +55,7 @@ public class BaseTest {
 			statement.execute(dropTableAccountQuery);
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-				try {
-					connection.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		return false;
+		}
 	}
 	
 	private static boolean fillTheTables() {
@@ -135,8 +137,8 @@ public class BaseTest {
 			    + "CUSTOMERNAME varchar(50) not null,"
 			    + "CUSTOMERMIDDLENAME varchar(50) not null,"
 			    + "CUSTOMERADDRESS varchar(50) not null,"
-			    + "DATERESERVATION timestamp,"
-			    + "DATEPAYMENT timestamp,"
+			    + "RESERVATIONDATE timestamp,"
+			    + "PAYMENTDATE timestamp,"
 			    + "primary key (ID))";
 
 		try {
@@ -163,11 +165,11 @@ public class BaseTest {
 	}
 	
 	private static void fillReservationTable(Statement statement) {
-		String reservationFirstRow = "INSERT INTO RESERVATION (CUSTOMERSURNAME, CUSTOMERNAME, CUSTOMERMIDDLENAME, CUSTOMERADDRESS, DATERESERVATION, DATEPAYMENT)"
+		String reservationFirstRow = "INSERT INTO RESERVATION (CUSTOMERSURNAME, CUSTOMERNAME, CUSTOMERMIDDLENAME, CUSTOMERADDRESS, RESERVATIONDATE, PAYMENTDATE)"
 				+ "VALUES ('Surname1', 'Name1', 'Middlename1', 'Address1', '2013-12-04 10:00:14', '2013-12-05 10:00:14')";
-		String reservationSecondRow = "INSERT INTO RESERVATION (CUSTOMERSURNAME, CUSTOMERNAME, CUSTOMERMIDDLENAME, CUSTOMERADDRESS, DATERESERVATION, DATEPAYMENT)"
+		String reservationSecondRow = "INSERT INTO RESERVATION (CUSTOMERSURNAME, CUSTOMERNAME, CUSTOMERMIDDLENAME, CUSTOMERADDRESS, RESERVATIONDATE, PAYMENTDATE)"
 				+ "VALUES ('Surname2', 'Name2', 'Middlename2', 'Address2', '2013-12-05 10:00:14', '2013-12-06 10:00:14')";
-		String reservationThirdRow = "INSERT INTO RESERVATION (CUSTOMERSURNAME, CUSTOMERNAME, CUSTOMERMIDDLENAME, CUSTOMERADDRESS, DATERESERVATION)"
+		String reservationThirdRow = "INSERT INTO RESERVATION (CUSTOMERSURNAME, CUSTOMERNAME, CUSTOMERMIDDLENAME, CUSTOMERADDRESS, RESERVATIONDATE)"
 				+ "VALUES ('Surname3', 'Name3', 'Middlename3', 'Address3', '2013-12-06 10:00:14')";
 		try {
 			statement.execute(reservationFirstRow);
