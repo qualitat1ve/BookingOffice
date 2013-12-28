@@ -2,13 +2,19 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.kukushkin.booking.office</groupId>
-	<artifactId>booking-office</artifactId>
+	<groupId>maks.kukushkin.booking.office</groupId>
+	<artifactId>model</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>booking-office</name>
-	<url>http://maven.apache.org</url>
+	<name>booking-office-model</name>
+	
+	<parent>
+		<groupId>maks.kukushkin</groupId>
+		<artifactId>booking-office</artifactId>
+		<version>1.0</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
