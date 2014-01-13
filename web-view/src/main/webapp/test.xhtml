@@ -10,6 +10,9 @@
 </f:view>
 <h:body>
     <ui:composition template="WEB-INF/templates/basic_template.xhtml">
+        <ui:define name="header">
+            <ui:include src="loginDialog.xhtml"/>
+        </ui:define>
     </ui:composition>
 </h:body>
 </html>
