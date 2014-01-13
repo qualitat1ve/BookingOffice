@@ -29,9 +29,9 @@ public class UserBean {
 
     public String checkUser(){
         if(this.user.equals("user") && this.password.equals("123")){
-            return "success";
+            return "loginSuccessful";
         }else{
-            return "loginfailed";
+            return "loginFailed";
         }
     }
 

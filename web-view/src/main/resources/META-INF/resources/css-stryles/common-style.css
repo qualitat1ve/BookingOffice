@@ -6,17 +6,17 @@ body {
 #header {
     height: 100px;
     background: #D2B48C;
-    border: 18px inset #25ff26;
+    border: 3px solid #25ff26;
 }
 
 #content {
     height: 660px;
     background: #FAEBD7;
-    border: 18px inset #1f65ff;
+    border: 3px solid #1f65ff;
 }
 
 #footer {
     height: 80px;
     background: #F5DEB3;
-    border: 18px inset red;
+    border: 3px solid red;
 }

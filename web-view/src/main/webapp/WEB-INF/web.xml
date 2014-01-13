@@ -12,7 +12,7 @@
     </context-param>
     <!-- Welcome page -->
     <welcome-file-list>
-        <welcome-file>faces/hello.xhtml</welcome-file>
+        <welcome-file>faces/test.xhtml</welcome-file>
     </welcome-file-list>
     <!-- JSF mapping -->
     <servlet>
