@@ -9,6 +9,7 @@
 <h:body>
     <ui:composition template="WEB-INF/templates/basic_template.xhtml">
         <ui:define name="content">
+            <h:form>
             <p:panelGrid columns="2">
                 <f:facet name="header">
                     #{msg.chooseTicketsPanel}
@@ -21,9 +22,11 @@
                 <p:inputText id="destination" value="" required="true" label="destination"/>
 
                 <f:facet name="footer">
-                    <p:commandButton type="button" value="#{msg.findFlightsButtonName}" icon="ui-icon-check" style="margin:0" action="#{flightsTableBean.findFlights}"/>
+                    <p:commandButton type="button" value="#{msg.findFlightsButtonName}" icon="ui-icon-check" style="margin:0" action="#{flightsTableBean.findFlights}"
+                                     ajax="false"/>
                 </f:facet>
             </p:panelGrid>
+            </h:form>
 
             <h:form id="form">
 
@@ -32,7 +35,7 @@
                 <p:dataTable var="flight" value="#{flightsTableBean.flightsList}" id="flightList" editable="true">
 
                     <f:facet name="header">
-                        In-Cell Editing
+                        #{msg.foundFlights}
                     </f:facet>
 
                     <p:ajax event="rowEdit" listener="#{flightsTableBean.onEdit}" update=":form:messages" />

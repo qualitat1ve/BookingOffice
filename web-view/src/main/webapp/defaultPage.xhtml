@@ -9,21 +9,24 @@
 <h:body>
     <ui:composition template="WEB-INF/templates/basic_template.xhtml">
         <ui:define name="content">
-            <p:panelGrid columns="2">
-                <f:facet name="header">
-                    #{msg.chooseTicketsPanel}
-                </f:facet>
+            <h:form>
+                <p:panelGrid columns="2">
+                    <f:facet name="header">
+                        #{msg.chooseTicketsPanel}
+                    </f:facet>
 
-                <h:outputLabel for="date" value="#{msg.departureDate}" />
-                <p:inputText id="date" value="" required="true" label="date" />
+                    <h:outputLabel for="date" value="#{msg.departureDate}"/>
+                    <p:inputText id="date" value="#{flightsTableBean.date}" required="true" label="date"/>
 
-                <h:outputLabel for="destination" value="#{msg.destination}" />
-                <p:inputText id="destination" value="" required="true" label="destination"/>
+                    <h:outputLabel for="destination" value="#{msg.destination}"/>
+                    <p:inputText id="destination" value="#{flightsTableBean.destinationPlace}" required="true" label="destination"/>
 
-                <f:facet name="footer">
-                    <p:commandButton type="button" value="#{msg.findFlightsButtonName}" icon="ui-icon-check" style="margin:0" action="foundFlights.xhtml" ajax="false"/>
-                </f:facet>
-            </p:panelGrid>
+                    <f:facet name="footer">
+                        <p:commandButton value="#{msg.findFlightsButtonName}" action="#{flightsTableBean.findFlights}"
+                                         ajax="false" icon="ui-icon-check" style="margin:0"/>
+                    </f:facet>
+                </p:panelGrid>
+            </h:form>
         </ui:define>
     </ui:composition>
 </h:body>

@@ -47,6 +47,7 @@ public class FlightsTableBean implements Serializable {
         flightsList = new ArrayList<Flight>();
         Flight flight = new Flight();
         flight.setArrival("Kiev");
+        flight.setFlightNumber("N87HHM123GG");
         flight.setArrivalDate(new Timestamp(Calendar.getInstance().getTime().getTime()));
         flight.setDepartureDate(new Timestamp(Calendar.getInstance().getTime().getTime()));
         flight.setDeparture("Vienna");
@@ -54,18 +55,20 @@ public class FlightsTableBean implements Serializable {
         flight.setTicketPrice(1000);
         Flight flight2 = new Flight();
         flight2.setArrival("Odessa");
+        flight2.setFlightNumber("H20N2SO4HCL98");
         flight2.setArrivalDate(new Timestamp(Calendar.getInstance().getTime().getTime()));
         flight2.setDepartureDate(new Timestamp(Calendar.getInstance().getTime().getTime()));
         flight2.setDeparture("Moscow");
         flight2.setTicketNumber(10);
         flight2.setTicketPrice(2000);
         Flight flight3 = new Flight();
-        flight2.setArrival("Lvov");
-        flight2.setArrivalDate(new Timestamp(Calendar.getInstance().getTime().getTime()));
-        flight2.setDepartureDate(new Timestamp(Calendar.getInstance().getTime().getTime()));
-        flight2.setDeparture("Seoul");
-        flight2.setTicketNumber(140);
-        flight2.setTicketPrice(800);
+        flight3.setArrival("Lvov");
+        flight3.setFlightNumber("N2CO3C2SO4FE2O3");
+        flight3.setArrivalDate(new Timestamp(Calendar.getInstance().getTime().getTime()));
+        flight3.setDepartureDate(new Timestamp(Calendar.getInstance().getTime().getTime()));
+        flight3.setDeparture("Seoul");
+        flight3.setTicketNumber(140);
+        flight3.setTicketPrice(800);
 
         flightsList.add(flight);
         flightsList.add(flight2);
@@ -98,8 +101,8 @@ public class FlightsTableBean implements Serializable {
 
     public String findFlights() {
         if(destinationPlace.equals("Antananarivo")) {
-            return "foundFlights";
-        } else return "noFlightsFound";
+            return "foundFlights.xhtml";
+        } else return "noFlightsFound.xhtml";
     }
 
     public String[] getDeparturePlaces() {
