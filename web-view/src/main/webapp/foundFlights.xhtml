@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:body>
+    <ui:composition template="WEB-INF/templates/basic_template.xhtml">
+        <ui:define name="content">
+            <p:panelGrid columns="2">
+                <f:facet name="header">
+                    #{msg.chooseTicketsPanel}
+                </f:facet>
+
+                <h:outputLabel for="date" value="#{msg.departureDate}" />
+                <p:inputText id="date" value="" required="true" label="date" />
+
+                <h:outputLabel for="destination" value="#{msg.destination}" />
+                <p:inputText id="destination" value="" required="true" label="destination"/>
+
+                <f:facet name="footer">
+                    <p:commandButton type="button" value="#{msg.findFlightsButtonName}" icon="ui-icon-check" style="margin:0" action="#{flightsTableBean.findFlights}"/>
+                </f:facet>
+            </p:panelGrid>
+
+            <h:form id="form">
+
+                <p:growl id="messages" showDetail="true"/>
+
+                <p:dataTable var="flight" value="#{flightsTableBean.flightsList}" id="flightList" editable="true">
+
+                    <f:facet name="header">
+                        In-Cell Editing
+                    </f:facet>
+
+                    <p:ajax event="rowEdit" listener="#{flightsTableBean.onEdit}" update=":form:messages" />
+                    <p:ajax event="rowEditCancel" listener="#{flightsTableBean.onCancel}" update=":form:messages" />
+
+                    <p:column headerText="#{msg.flightTableHeaderFlightNumber}" style="width:30%">
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{flight.flightNumber}" />
+                            </f:facet>
+                            <f:facet name="input">
+                                <p:inputText value="#{flight.flightNumber}" style="width:100%"/>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column headerText="#{msg.flightTableHeaderFlightDeparture}" style="width:20%">
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{flight.departure}" />
+                            </f:facet>
+                            <f:facet name="input">
+                                <h:selectOneMenu value="#{flight.departure}" >
+                                    <f:selectItems value="#{flightsTableBean.departurePlaces}"
+                                                   var="departure"
+                                                   itemLabel="#{departure}"
+                                                   itemValue="#{departure}"/>
+                                </h:selectOneMenu>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column headerText="#{msg.flightTableHeaderFlightArrival}" style="width:24%">
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{flight.arrival}" />
+                            </f:facet>
+                            <f:facet name="input">
+                                <h:selectOneMenu value="#{flight.arrival}" >
+                                    <f:selectItems value="#{flightsTableBean.arrivalPlaces}"
+                                                   var="arrival"
+                                                   itemLabel="#{arrival}"
+                                                   itemValue="#{arrival}"/>
+                                </h:selectOneMenu>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column headerText="#{msg.flightTableHeaderFlightDepartureDate}" style="width:30%">
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{flight.departureDate}" />
+                            </f:facet>
+                            <f:facet name="input">
+                                <p:inputText value="#{flight.departureDate}" style="width:100%"/>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column style="width:6%">
+                        <p:rowEditor />
+                    </p:column>
+
+                    <p:column headerText="#{msg.flightTableHeaderFlightArrivalDate}" style="width:30%">
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{flight.arrivalDate}" />
+                            </f:facet>
+                            <f:facet name="input">
+                                <p:inputText value="#{flight.arrivalDate}" style="width:100%"/>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column headerText="#{msg.flightTableHeaderFlightTicketsNumber}" style="width:30%">
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{flight.ticketNumber}" />
+                            </f:facet>
+                            <f:facet name="input">
+                                <p:inputText value="#{flight.ticketNumber}" style="width:100%"/>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column headerText="#{msg.flightTableHeaderFlightTicketsPrice}" style="width:30%">
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{flight.ticketPrice}" />
+                            </f:facet>
+                            <f:facet name="input">
+                                <p:inputText value="#{flight.ticketPrice}" style="width:100%"/>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                </p:dataTable>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>
