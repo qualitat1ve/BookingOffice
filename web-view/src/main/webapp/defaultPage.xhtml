@@ -14,12 +14,11 @@
                     <f:facet name="header">
                         #{msg.chooseTicketsPanel}
                     </f:facet>
-
-                    <h:outputLabel for="date" value="#{msg.departureDate}"/>
-                    <p:inputText id="date" value="#{flightsTableBean.date}" required="true" label="date"/>
-
-                    <h:outputLabel for="destination" value="#{msg.destination}"/>
+                    <h:outputText for="destination" value="#{msg.destination}"/>
                     <p:inputText id="destination" value="#{flightsTableBean.destinationPlace}" required="true" label="destination"/>
+
+                    <h:outputText for="date" value="#{msg.departureDate}"/>
+                    <p:calendar value="#{flightsTableBean.date}" id="date" pattern="dd.MM.yyyy" />
 
                     <f:facet name="footer">
                         <p:commandButton value="#{msg.findFlightsButtonName}" action="#{flightsTableBean.findFlights}"

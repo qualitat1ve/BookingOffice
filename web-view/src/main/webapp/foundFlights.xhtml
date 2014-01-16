@@ -10,22 +10,21 @@
     <ui:composition template="WEB-INF/templates/basic_template.xhtml">
         <ui:define name="content">
             <h:form>
-            <p:panelGrid columns="2">
-                <f:facet name="header">
-                    #{msg.chooseTicketsPanel}
-                </f:facet>
+                <p:panelGrid columns="2">
+                    <f:facet name="header">
+                        #{msg.chooseTicketsPanel}
+                    </f:facet>
+                    <h:outputText for="destination" value="#{msg.destination}"/>
+                    <p:inputText id="destination" value="#{flightsTableBean.destinationPlace}" required="true" label="destination"/>
 
-                <h:outputLabel for="date" value="#{msg.departureDate}" />
-                <p:inputText id="date" value="" required="true" label="date" />
+                    <h:outputText for="date" value="#{msg.departureDate}"/>
+                    <p:calendar value="#{flightsTableBean.date}" id="date" pattern="dd.MM.yyyy" />
 
-                <h:outputLabel for="destination" value="#{msg.destination}" />
-                <p:inputText id="destination" value="" required="true" label="destination"/>
-
-                <f:facet name="footer">
-                    <p:commandButton type="button" value="#{msg.findFlightsButtonName}" icon="ui-icon-check" style="margin:0" action="#{flightsTableBean.findFlights}"
-                                     ajax="false"/>
-                </f:facet>
-            </p:panelGrid>
+                    <f:facet name="footer">
+                        <p:commandButton value="#{msg.findFlightsButtonName}" action="#{flightsTableBean.findFlights}"
+                                         ajax="false" icon="ui-icon-check" style="margin:0"/>
+                    </f:facet>
+                </p:panelGrid>
             </h:form>
 
             <h:form id="form">
@@ -41,7 +40,7 @@
                     <p:ajax event="rowEdit" listener="#{flightsTableBean.onEdit}" update=":form:messages" />
                     <p:ajax event="rowEditCancel" listener="#{flightsTableBean.onCancel}" update=":form:messages" />
 
-                    <p:column headerText="#{msg.flightTableHeaderFlightNumber}" style="width:30%">
+                    <p:column headerText="#{msg.flightTableHeaderFlightNumber}" style="width:15%">
                         <p:cellEditor>
                             <f:facet name="output">
                                 <h:outputText value="#{flight.flightNumber}" />
@@ -52,7 +51,7 @@
                         </p:cellEditor>
                     </p:column>
 
-                    <p:column headerText="#{msg.flightTableHeaderFlightDeparture}" style="width:20%">
+                    <p:column headerText="#{msg.flightTableHeaderFlightDeparture}" style="width:15%">
                         <p:cellEditor>
                             <f:facet name="output">
                                 <h:outputText value="#{flight.departure}" />
@@ -68,7 +67,7 @@
                         </p:cellEditor>
                     </p:column>
 
-                    <p:column headerText="#{msg.flightTableHeaderFlightArrival}" style="width:24%">
+                    <p:column headerText="#{msg.flightTableHeaderFlightArrival}" style="width:15%">
                         <p:cellEditor>
                             <f:facet name="output">
                                 <h:outputText value="#{flight.arrival}" />
@@ -84,7 +83,7 @@
                         </p:cellEditor>
                     </p:column>
 
-                    <p:column headerText="#{msg.flightTableHeaderFlightDepartureDate}" style="width:30%">
+                    <p:column headerText="#{msg.flightTableHeaderFlightDepartureDate}" style="width:15%">
                         <p:cellEditor>
                             <f:facet name="output">
                                 <h:outputText value="#{flight.departureDate}" />
@@ -95,11 +94,7 @@
                         </p:cellEditor>
                     </p:column>
 
-                    <p:column style="width:6%">
-                        <p:rowEditor />
-                    </p:column>
-
-                    <p:column headerText="#{msg.flightTableHeaderFlightArrivalDate}" style="width:30%">
+                    <p:column headerText="#{msg.flightTableHeaderFlightArrivalDate}" style="width:15%">
                         <p:cellEditor>
                             <f:facet name="output">
                                 <h:outputText value="#{flight.arrivalDate}" />
@@ -110,7 +105,7 @@
                         </p:cellEditor>
                     </p:column>
 
-                    <p:column headerText="#{msg.flightTableHeaderFlightTicketsNumber}" style="width:30%">
+                    <p:column headerText="#{msg.flightTableHeaderFlightTicketsNumber}" style="width:10%">
                         <p:cellEditor>
                             <f:facet name="output">
                                 <h:outputText value="#{flight.ticketNumber}" />
@@ -121,7 +116,7 @@
                         </p:cellEditor>
                     </p:column>
 
-                    <p:column headerText="#{msg.flightTableHeaderFlightTicketsPrice}" style="width:30%">
+                    <p:column headerText="#{msg.flightTableHeaderFlightTicketsPrice}" style="width:15%">
                         <p:cellEditor>
                             <f:facet name="output">
                                 <h:outputText value="#{flight.ticketPrice}" />
@@ -130,6 +125,10 @@
                                 <p:inputText value="#{flight.ticketPrice}" style="width:100%"/>
                             </f:facet>
                         </p:cellEditor>
+                    </p:column>
+
+                    <p:column headerText="#{msg.flightTableEdit}" style="width:3%">
+                        <p:rowEditor />
                     </p:column>
 
                 </p:dataTable>

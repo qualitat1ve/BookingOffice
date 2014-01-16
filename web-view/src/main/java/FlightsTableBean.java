@@ -9,12 +9,13 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 @ManagedBean
 @SessionScoped
 public class FlightsTableBean implements Serializable {
     private ArrayList<Flight> flightsList;
-    private String date;
+    private Date date;
     private String destinationPlace;
     private String[] departurePlaces;
     private String[] arrivalPlaces;
@@ -83,11 +84,11 @@ public class FlightsTableBean implements Serializable {
         this.flightsList = flightsList;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
