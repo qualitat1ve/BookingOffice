@@ -7,7 +7,8 @@
       xmlns:p="http://primefaces.org/ui" >
 <h:body>
     <p:panel>
-        <h:outputText value="Incorrect login or password!" />
+        <h:outputText value="#{msg.loginFailed}" />
+        <ui:include src="loginDialog.xhtml"/>
     </p:panel>
 </h:body>
 </html>
