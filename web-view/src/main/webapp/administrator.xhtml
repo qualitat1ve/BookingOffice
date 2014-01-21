@@ -8,8 +8,123 @@
       xmlns:f="http://java.sun.com/jsf/core">
 <h:body>
     <ui:composition template="WEB-INF/templates/basic_template.xhtml">
-        <ui:define name="content">
+        <ui:define name="header">
             <h3>Hello, Admin!</h3>
+        </ui:define>
+        <ui:define name="content">
+            <h:form id="newFlightForm">
+
+                <p:growl id="msgs" />
+
+                <p:panel header="#{msg.createFlight}">
+                    <h:panelGrid columns="2" id="grid">
+                        <h:outputLabel value="#{msg.flightTableHeaderFlightNumber}" for="flightNumber"></h:outputLabel>
+                        <p:inputText id="flightNumber"
+                                     value="#{flightsTableBean.flight.flightNumber}" required="true"/>
+
+                        <h:outputLabel value="#{msg.flightTableHeaderFlightDeparture}" for="departure"></h:outputLabel>
+                        <p:selectOneMenu id="departure" value="#{flightsTableBean.flight.departure}" effect="fold" editable="true">
+                            <f:selectItem itemLabel="#{msg.selectCityDefaultLabel}" itemValue="" />
+                            <f:selectItems value="#{flightsTableBean.departurePlaces}" />
+                        </p:selectOneMenu>
+
+                        <h:outputLabel value="#{msg.flightTableHeaderFlightArrival}" for="arrival"></h:outputLabel>
+                        <p:selectOneMenu id="arrival" value="#{flightsTableBean.flight.arrival}" effect="fold" editable="true">
+                            <f:selectItem itemLabel="#{msg.selectCityDefaultLabel}" itemValue="" />
+                            <f:selectItems value="#{flightsTableBean.arrivalPlaces}" />
+                        </p:selectOneMenu>
+
+                        <h:outputLabel value="#{msg.flightTableHeaderFlightDepartureDate}" for="departureDate"></h:outputLabel>
+                        <p:calendar value="#{flightsTableBean.flight.departureDate}" id="departureDate" pattern="dd.MM.yyyy HH:mm"/>
+
+                        <h:outputLabel value="#{msg.flightTableHeaderFlightArrivalDate}" for="arrivalDate"></h:outputLabel>
+                        <p:calendar value="#{flightsTableBean.flight.departureDate}" id="arrivalDate" pattern="dd.MM.yyyy HH:mm"/>
+
+                        <h:outputLabel value="#{msg.flightTableHeaderFlightTicketsNumber}" for="ticketsNumber"></h:outputLabel>
+                        <p:inputText id="ticketsNumber" required="true"
+                                     value="#{flightsTableBean.flight.ticketNumber}" />
+
+                        <h:outputLabel value="#{msg.flightTableHeaderFlightTicketsPrice}" for="ticketsPrice"></h:outputLabel>
+                        <p:inputText id="ticketsPrice" required="true"
+                                     value="#{flightsTableBean.flight.ticketPrice}" />
+
+                        <p:commandButton value="#{msg.createFlightResetCaption}" type="reset"/>
+
+                        <p:commandButton id="btn_add" value="#{msg.createFlightAcceptCaption}" update="flights msgs @parent"
+                                         action="#{flightsTableBean.reInit}" >
+                            <p:collector value="#{flightsTableBean.flight}"
+                                         addTo="#{flightsTableBean.createdFlights}" />
+                        </p:commandButton>
+                    </h:panelGrid>
+                </p:panel>
+
+                <p:outputPanel id="flights">
+                    <p:dataTable id="flightsTable" value="#{flightsTableBean.createdFlights}" var="flight">
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.flightTableHeaderFlightNumber}" />
+                            </f:facet>
+                            <h:outputText value="#{flight.flightNumber}" />
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.flightTableHeaderFlightDeparture}" />
+                            </f:facet>
+                            <h:outputText value="#{flight.departure}" />
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.flightTableHeaderFlightArrival}" />
+                            </f:facet>
+                            <h:outputText value="#{flight.arrival}" />
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.flightTableHeaderFlightDepartureDate}" />
+                            </f:facet>
+                            <h:outputText value="#{flight.departureDate}" />
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.flightTableHeaderFlightArrivalDate}" />
+                            </f:facet>
+                            <h:outputText value="#{flight.arrivalDate}" />
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.flightTableHeaderFlightTicketsNumber}" />
+                            </f:facet>
+                            <h:outputText value="#{flight.ticketNumber}" />
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.flightTableHeaderFlightTicketsPrice}" />
+                            </f:facet>
+                            <h:outputText value="#{flight.ticketPrice}" />
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Operation" />
+                            </f:facet>
+                            <p:commandLink value="#{msg.flightTableRemoveCaption}" update=":newFlightForm:flights" process=":newFlightForm:flights">
+                                <p:collector value="#{flight}"
+                                             removeFrom="#{flightsTableBean.createdFlights}" />
+                            </p:commandLink>
+                        </p:column>
+
+                    </p:dataTable>
+                </p:outputPanel>
+
+            </h:form>
+
         </ui:define>
     </ui:composition>
 </h:body>

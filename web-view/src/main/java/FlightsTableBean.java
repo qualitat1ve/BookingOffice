@@ -15,6 +15,8 @@ import java.util.Date;
 @SessionScoped
 public class FlightsTableBean implements Serializable {
     private ArrayList<Flight> flightsList;
+    private ArrayList<Flight> createdFlights = new ArrayList<Flight>();
+    private Flight flight = new Flight();
     private Date date;
     private String destinationPlace;
     private String[] departurePlaces;
@@ -74,6 +76,27 @@ public class FlightsTableBean implements Serializable {
         flightsList.add(flight);
         flightsList.add(flight2);
         flightsList.add(flight3);
+    }
+
+    public Flight getFlight() {
+        return flight;
+    }
+
+    public void setFlight(Flight flight) {
+        this.flight = flight;
+    }
+
+    public String reInit() {
+        flight = new Flight();
+        return null;
+    }
+
+    public ArrayList<Flight> getCreatedFlights() {
+        return createdFlights;
+    }
+
+    public void setCreatedFlights(ArrayList<Flight> createdFlights) {
+        this.createdFlights = createdFlights;
     }
 
     public ArrayList<Flight> getFlightsList() {

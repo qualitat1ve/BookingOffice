@@ -1,11 +1,13 @@
 package com.kukushkin.booking.office.entity;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Objects;
 
 import javax.persistence.*;
 
 @Entity
-public class Flight implements Persistent {
+public class Flight implements Persistent, Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
@@ -77,5 +79,24 @@ public class Flight implements Persistent {
 	public void setTicketPrice(double ticketPrice) {
 		this.ticketPrice = ticketPrice;
 	}
+
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Flight)) return false;
+        Flight flight = (Flight) obj;
+        return (flight.getFlightNumber() != null && flight.getFlightNumber().equals(flightNumber)) &&
+                (flight.getDeparture() != null && flight.getDeparture().equals(departure));
+
+    }
+
+    public int hashCode() {
+        int hash = 1;
+        if (flightNumber != null) {
+            hash = hash * 31 + flightNumber.hashCode();
+        }
+        if (departure != null) {
+            hash = hash * 29 + departure.hashCode();
+        }
+        return hash;
+    }
 
 }
