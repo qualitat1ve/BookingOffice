@@ -1,10 +1,8 @@
 import com.kukushkin.booking.office.entity.Flight;
 import org.primefaces.event.RowEditEvent;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -15,8 +13,8 @@ import java.util.Date;
 @SessionScoped
 public class FlightsTableBean implements Serializable {
     private ArrayList<Flight> flightsList;
-    private ArrayList<Flight> createdFlights = new ArrayList<Flight>();
-    private Flight flight = new Flight();
+    private ArrayList<FakeFlight> createdFlights = new ArrayList<FakeFlight>();
+    private FakeFlight flight = new FakeFlight();
     private Date date;
     private String destinationPlace;
     private String[] departurePlaces;
@@ -25,7 +23,7 @@ public class FlightsTableBean implements Serializable {
     public FlightsTableBean() {
         initFakeDeparturePlaces();
         iniFakeArrivalPlaces();
-        initFakeFlights();
+        initTestFlights();
     }
 
     private void iniFakeArrivalPlaces() {
@@ -46,7 +44,7 @@ public class FlightsTableBean implements Serializable {
         departurePlaces[4] = "Prague";
     }
 
-    private void initFakeFlights() {
+    private void initTestFlights() {
         flightsList = new ArrayList<Flight>();
         Flight flight = new Flight();
         flight.setArrival("Kiev");
@@ -78,24 +76,41 @@ public class FlightsTableBean implements Serializable {
         flightsList.add(flight3);
     }
 
-    public Flight getFlight() {
-        return flight;
-    }
-
-    public void setFlight(Flight flight) {
-        this.flight = flight;
-    }
-
-    public String reInit() {
-        flight = new Flight();
+    public String addFlightsToTimetable() {
+        for (FakeFlight fakeFlight: createdFlights) {
+            Flight flight = new Flight();
+            flight.setFlightNumber(fakeFlight.getFlightNumber());
+            flight.setArrival(fakeFlight.getArrival());
+            flight.setDeparture(fakeFlight.getDeparture());
+            flight.setArrivalDate(new Timestamp(fakeFlight.getArrivalDate().getTime()));
+            flight.setDepartureDate(new Timestamp(fakeFlight.getDepartureDate().getTime()));
+            flight.setCreationDate(new Timestamp(Calendar.getInstance().getTime().getTime()));
+            flight.setTicketNumber(fakeFlight.getTicketNumber());
+            flight.setTicketPrice(fakeFlight.getTicketPrice());
+            flightsList.add(flight);
+        }
+        createdFlights.clear();
         return null;
     }
 
-    public ArrayList<Flight> getCreatedFlights() {
+    public String reInit() {
+        flight = new FakeFlight();
+        return null;
+    }
+
+    public FakeFlight getFlight() {
+        return flight;
+    }
+
+    public void setFlight(FakeFlight flight) {
+        this.flight = flight;
+    }
+
+    public ArrayList<FakeFlight> getCreatedFlights() {
         return createdFlights;
     }
 
-    public void setCreatedFlights(ArrayList<Flight> createdFlights) {
+    public void setCreatedFlights(ArrayList<FakeFlight> createdFlights) {
         this.createdFlights = createdFlights;
     }
 

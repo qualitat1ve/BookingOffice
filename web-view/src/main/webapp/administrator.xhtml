@@ -38,7 +38,7 @@
                         <p:calendar value="#{flightsTableBean.flight.departureDate}" id="departureDate" pattern="dd.MM.yyyy HH:mm"/>
 
                         <h:outputLabel value="#{msg.flightTableHeaderFlightArrivalDate}" for="arrivalDate"></h:outputLabel>
-                        <p:calendar value="#{flightsTableBean.flight.departureDate}" id="arrivalDate" pattern="dd.MM.yyyy HH:mm"/>
+                        <p:calendar value="#{flightsTableBean.flight.arrivalDate}" id="arrivalDate" pattern="dd.MM.yyyy HH:mm"/>
 
                         <h:outputLabel value="#{msg.flightTableHeaderFlightTicketsNumber}" for="ticketsNumber"></h:outputLabel>
                         <p:inputText id="ticketsNumber" required="true"
@@ -121,6 +121,7 @@
                         </p:column>
 
                     </p:dataTable>
+                    <p:commandButton id="submitCreationFlightBtn" value="#{msg.createFlight}" update=":newFlightForm:flights" process=":newFlightForm:flights" action="#{flightsTableBean.addFlightsToTimetable}"/>
                 </p:outputPanel>
 
             </h:form>
