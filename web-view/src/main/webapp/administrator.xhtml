@@ -7,27 +7,6 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core">
 <f:view contentType="text/html">
-    <h:head>
-        <f:facet name="first">
-            <meta http-equiv="X-UA-Compatible" content="EmulateIE8" />
-            <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-            <title>PrimeFaces - ShowCase</title>
-        </f:facet>
-
-        <link type="text/css" rel="stylesheet" href="#{request.contextPath}/css/default.css" />
-        <link type="text/css" rel="stylesheet" href="#{request.contextPath}/css/syntaxhighlighter/syntaxhighlighter.css" />
-
-        <style type="text/css">
-            .ui-layout-north {
-                z-index:20 !important;
-                overflow:visible !important;;
-            }
-
-            .ui-layout-north .ui-layout-unit-content {
-                overflow:visible !important;
-            }
-        </style>
-    </h:head>
     <h:body>
         <ui:composition template="WEB-INF/templates/basic_template.xhtml">
             <ui:define name="header">
@@ -36,11 +15,11 @@
             <ui:define name="content">
                 <p:layout fullPage="true">
                     <p:layoutUnit id="top" position="north" size="50">
-                        <p:outputLabel value="Timetable adminitration section:"/>
+                        <p:outputLabel value="#{msg.timeTableHeaderTitle}"/>
                     </p:layoutUnit>
-                    <p:layoutUnit id="left" position="west" size="450" resizable="true" closable="true" collapsible="true" header="Options" minSize="450">
+                    <p:layoutUnit id="left" position="west" size="400" resizable="false" closable="false" collapsible="false" header="#{msg.timeTableOptionLabel}">
                         <p:accordionPanel>
-                            <p:tab title="Add flight">
+                            <p:tab title="#{msg.timeTableTabAddFlight}">
                                 <h:form id="newFlightForm">
 
                                     <p:growl id="msgs"/>
@@ -101,7 +80,7 @@
                                     </p:panel>
                                 </h:form>
                             </p:tab>
-                            <p:tab title="Edit flight">
+                            <p:tab title="#{msg.timeTableTabEditFlight}">
                                 <h:outputLabel value="there should be form for editing flight!"/>
                             </p:tab>
                         </p:accordionPanel>

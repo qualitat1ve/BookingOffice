@@ -5,18 +5,18 @@ body {
 
 #header {
     height: 100px;
-    background: #D2B48C;
-    border: 3px solid #25ff26;
+    background: #ffffff;
+    border: 3px solid #cdcdcd;
 }
 
 #content {
     height: 660px;
-    background: #FAEBD7;
-    border: 3px solid #1f65ff;
+    background: #ffffff;
+    border: 3px solid #cdcdcd;
 }
 
 #footer {
     height: 80px;
-    background: #F5DEB3;
-    border: 3px solid red;
+    background: #ffffff;
+    border: 3px solid #cdcdcd;
 }
