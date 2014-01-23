@@ -19,6 +19,8 @@ public class FlightsTableBean implements Serializable {
     private String destinationPlace;
     private String[] departurePlaces;
     private String[] arrivalPlaces;
+    private String selectedFlightNumber;
+
 
     public FlightsTableBean() {
         initFakeDeparturePlaces();
@@ -98,6 +100,22 @@ public class FlightsTableBean implements Serializable {
         return null;
     }
 
+    public String copyAndReInit() {
+        for (Flight realFlight : flightsList) {
+            if (realFlight.getFlightNumber().equals(selectedFlightNumber)) {
+                flight.setFlightNumber(realFlight.getFlightNumber());
+                flight.setDeparture(realFlight.getDeparture());
+                flight.setArrival(realFlight.getArrival());
+                flight.setDepartureDate(new Date(realFlight.getDepartureDate().getTime()));
+                flight.setArrivalDate(new Date(realFlight.getArrivalDate().getTime()));
+                flight.setTicketNumber(realFlight.getTicketNumber());
+                flight.setTicketPrice(realFlight.getTicketPrice());
+                break;
+            }
+        }
+        return null;
+    }
+
     public FakeFlight getFlight() {
         return flight;
     }
@@ -168,5 +186,13 @@ public class FlightsTableBean implements Serializable {
     public void onCancel(RowEditEvent event) {
 //        FacesMessage msg = new FacesMessage("Flight editing cancelled", ((Flight) event.getObject()).getFlightNumber());
 //        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public String getSelectedFlightNumber() {
+        return selectedFlightNumber;
+    }
+
+    public void setSelectedFlightNumber(String selectedFlightNumber) {
+        this.selectedFlightNumber = selectedFlightNumber;
     }
 }

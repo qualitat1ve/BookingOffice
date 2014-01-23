@@ -99,4 +99,8 @@ public class Flight implements Persistent, Serializable {
         return hash;
     }
 
+    public String toString() {
+        return flightNumber;
+    }
+
 }
