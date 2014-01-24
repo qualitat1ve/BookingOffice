@@ -13,8 +13,7 @@ import java.util.Date;
 @SessionScoped
 public class FlightsTableBean implements Serializable {
     private ArrayList<Flight> flightsList;
-    private ArrayList<FakeFlight> createdFlights = new ArrayList<FakeFlight>();
-    private FakeFlight flight = new FakeFlight();
+    private Flight selectedFlight = new Flight();
     private Date date;
     private String destinationPlace;
     private String[] departurePlaces;
@@ -51,24 +50,27 @@ public class FlightsTableBean implements Serializable {
         Flight flight = new Flight();
         flight.setArrival("Kiev");
         flight.setFlightNumber("N87HHM123GG");
-        flight.setArrivalDate(new Timestamp(Calendar.getInstance().getTime().getTime()));
-        flight.setDepartureDate(new Timestamp(Calendar.getInstance().getTime().getTime()));
+        flight.setArrivalDate(Calendar.getInstance().getTime());
+        flight.setDepartureDate(Calendar.getInstance().getTime());
+        flight.setCreationDate(Calendar.getInstance().getTime());
         flight.setDeparture("Vienna");
         flight.setTicketNumber(20);
         flight.setTicketPrice(1000);
         Flight flight2 = new Flight();
         flight2.setArrival("Odessa");
         flight2.setFlightNumber("H20N2SO4HCL98");
-        flight2.setArrivalDate(new Timestamp(Calendar.getInstance().getTime().getTime()));
-        flight2.setDepartureDate(new Timestamp(Calendar.getInstance().getTime().getTime()));
+        flight2.setArrivalDate(Calendar.getInstance().getTime());
+        flight2.setDepartureDate(Calendar.getInstance().getTime());
+        flight2.setCreationDate(Calendar.getInstance().getTime());
         flight2.setDeparture("Moscow");
         flight2.setTicketNumber(10);
         flight2.setTicketPrice(2000);
         Flight flight3 = new Flight();
         flight3.setArrival("Lvov");
         flight3.setFlightNumber("N2CO3C2SO4FE2O3");
-        flight3.setArrivalDate(new Timestamp(Calendar.getInstance().getTime().getTime()));
-        flight3.setDepartureDate(new Timestamp(Calendar.getInstance().getTime().getTime()));
+        flight3.setArrivalDate(Calendar.getInstance().getTime());
+        flight3.setDepartureDate(Calendar.getInstance().getTime());
+        flight3.setCreationDate(Calendar.getInstance().getTime());
         flight3.setDeparture("Seoul");
         flight3.setTicketNumber(140);
         flight3.setTicketPrice(800);
@@ -78,58 +80,25 @@ public class FlightsTableBean implements Serializable {
         flightsList.add(flight3);
     }
 
-    public String addFlightsToTimetable() {
-        for (FakeFlight fakeFlight: createdFlights) {
-            Flight flight = new Flight();
-            flight.setFlightNumber(fakeFlight.getFlightNumber());
-            flight.setArrival(fakeFlight.getArrival());
-            flight.setDeparture(fakeFlight.getDeparture());
-            flight.setArrivalDate(new Timestamp(fakeFlight.getArrivalDate().getTime()));
-            flight.setDepartureDate(new Timestamp(fakeFlight.getDepartureDate().getTime()));
-            flight.setCreationDate(new Timestamp(Calendar.getInstance().getTime().getTime()));
-            flight.setTicketNumber(fakeFlight.getTicketNumber());
-            flight.setTicketPrice(fakeFlight.getTicketPrice());
-            flightsList.add(flight);
-        }
-        createdFlights.clear();
-        return null;
-    }
-
     public String reInit() {
-        flight = new FakeFlight();
+        selectedFlight = new Flight();
         return null;
     }
 
-    public String copyAndReInit() {
-        for (Flight realFlight : flightsList) {
-            if (realFlight.getFlightNumber().equals(selectedFlightNumber)) {
-                flight.setFlightNumber(realFlight.getFlightNumber());
-                flight.setDeparture(realFlight.getDeparture());
-                flight.setArrival(realFlight.getArrival());
-                flight.setDepartureDate(new Date(realFlight.getDepartureDate().getTime()));
-                flight.setArrivalDate(new Date(realFlight.getArrivalDate().getTime()));
-                flight.setTicketNumber(realFlight.getTicketNumber());
-                flight.setTicketPrice(realFlight.getTicketPrice());
+    public String selectFlight() {
+        for (Flight savedFlight : flightsList) {
+            if (savedFlight.getFlightNumber().equals(selectedFlightNumber)) {
+                selectedFlight = savedFlight;
+                //TODO: activate edit mode for selected flight!
                 break;
             }
         }
         return null;
     }
 
-    public FakeFlight getFlight() {
-        return flight;
-    }
-
-    public void setFlight(FakeFlight flight) {
-        this.flight = flight;
-    }
-
-    public ArrayList<FakeFlight> getCreatedFlights() {
-        return createdFlights;
-    }
-
-    public void setCreatedFlights(ArrayList<FakeFlight> createdFlights) {
-        this.createdFlights = createdFlights;
+    public String clearFlightsList() {
+        flightsList.clear();
+        return null;
     }
 
     public ArrayList<Flight> getFlightsList() {
@@ -194,5 +163,13 @@ public class FlightsTableBean implements Serializable {
 
     public void setSelectedFlightNumber(String selectedFlightNumber) {
         this.selectedFlightNumber = selectedFlightNumber;
+    }
+
+    public Flight getSelectedFlight() {
+        return selectedFlight;
+    }
+
+    public void setSelectedFlight(Flight selectedFlight) {
+        this.selectedFlight = selectedFlight;
     }
 }

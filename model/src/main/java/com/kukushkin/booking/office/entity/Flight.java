@@ -2,6 +2,7 @@ package com.kukushkin.booking.office.entity;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Objects;
 
 import javax.persistence.*;
@@ -11,17 +12,20 @@ public class Flight implements Persistent, Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-	private Timestamp creationDate;
+    @Temporal(TemporalType.TIMESTAMP)
+	private Date creationDate;
 	private String flightNumber;
 	private String departure;
 	private String arrival;
-	private Timestamp departureDate;
-	private Timestamp arrivalDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date departureDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date arrivalDate;
 	private int ticketNumber;
 	private double ticketPrice;
 	
 	public Flight() {}
-	
+
 	@Override
 	public int getId() {
 		return id;
@@ -31,10 +35,10 @@ public class Flight implements Persistent, Serializable {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public Timestamp getCreationDate() {
+	public Date getCreationDate() {
 		return creationDate;
 	}
-	public void setCreationDate(Timestamp creationDate) {
+	public void setCreationDate(Date creationDate) {
 		this.creationDate = creationDate;
 	}
 	public String getFlightNumber() {
@@ -55,16 +59,16 @@ public class Flight implements Persistent, Serializable {
 	public void setArrival(String arrival) {
 		this.arrival = arrival;
 	}
-	public Timestamp getDepartureDate() {
+	public Date getDepartureDate() {
 		return departureDate;
 	}
-	public void setDepartureDate(Timestamp departureDate) {
+	public void setDepartureDate(Date departureDate) {
 		this.departureDate = departureDate;
 	}
-	public Timestamp getArrivalDate() {
+	public Date getArrivalDate() {
 		return arrivalDate;
 	}
-	public void setArrivalDate(Timestamp arrivalDate) {
+	public void setArrivalDate(Date arrivalDate) {
 		this.arrivalDate = arrivalDate;
 	}
 	public int getTicketNumber() {
@@ -84,7 +88,8 @@ public class Flight implements Persistent, Serializable {
         if (!(obj instanceof Flight)) return false;
         Flight flight = (Flight) obj;
         return (flight.getFlightNumber() != null && flight.getFlightNumber().equals(flightNumber)) &&
-                (flight.getDeparture() != null && flight.getDeparture().equals(departure));
+                (flight.getDeparture() != null && flight.getDeparture().equals(departure)) &&
+                (flight.getCreationDate() != null && flight.getCreationDate().equals(creationDate));
 
     }
 

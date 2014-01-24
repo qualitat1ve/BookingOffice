@@ -28,47 +28,47 @@
                                     <p:panel header="#{msg.createFlight}">
                                         <h:panelGrid columns="2" id="grid">
                                             <h:outputLabel value="#{msg.flightTableHeaderFlightNumber}"
-                                                           for="flightNumber"></h:outputLabel>
+                                                           for="flightNumber"/>
                                             <p:inputText id="flightNumber"
-                                                         value="#{flightsTableBean.flight.flightNumber}"
+                                                         value="#{flightsTableBean.selectedFlight.flightNumber}"
                                                          required="true"/>
 
                                             <h:outputLabel value="#{msg.flightTableHeaderFlightDeparture}"
-                                                           for="departure"></h:outputLabel>
-                                            <p:selectOneMenu id="departure" value="#{flightsTableBean.flight.departure}"
+                                                           for="departure"/>
+                                            <p:selectOneMenu id="departure" value="#{flightsTableBean.selectedFlight.departure}"
                                                              effect="fold" editable="true">
                                                 <f:selectItem itemLabel="#{msg.selectCityDefaultLabel}" itemValue=""/>
                                                 <f:selectItems value="#{flightsTableBean.departurePlaces}"/>
                                             </p:selectOneMenu>
 
                                             <h:outputLabel value="#{msg.flightTableHeaderFlightArrival}"
-                                                           for="arrival"></h:outputLabel>
-                                            <p:selectOneMenu id="arrival" value="#{flightsTableBean.flight.arrival}"
+                                                           for="arrival"/>
+                                            <p:selectOneMenu id="arrival" value="#{flightsTableBean.selectedFlight.arrival}"
                                                              effect="fold" editable="true">
                                                 <f:selectItem itemLabel="#{msg.selectCityDefaultLabel}" itemValue=""/>
                                                 <f:selectItems value="#{flightsTableBean.arrivalPlaces}"/>
                                             </p:selectOneMenu>
 
                                             <h:outputLabel value="#{msg.flightTableHeaderFlightDepartureDate}"
-                                                           for="departureDate"></h:outputLabel>
-                                            <p:calendar value="#{flightsTableBean.flight.departureDate}"
+                                                           for="departureDate"/>
+                                            <p:calendar value="#{flightsTableBean.selectedFlight.departureDate}"
                                                         id="departureDate" pattern="dd.MM.yyyy HH:mm"/>
 
                                             <h:outputLabel value="#{msg.flightTableHeaderFlightArrivalDate}"
-                                                           for="arrivalDate"></h:outputLabel>
+                                                           for="arrivalDate"/>
 
-                                            <p:calendar value="#{flightsTableBean.flight.arrivalDate}" id="arrivalDate"
+                                            <p:calendar value="#{flightsTableBean.selectedFlight.arrivalDate}" id="arrivalDate"
                                                         pattern="dd.MM.yyyy HH:mm"/>
 
                                             <h:outputLabel value="#{msg.flightTableHeaderFlightTicketsNumber}"
-                                                           for="ticketsNumber"></h:outputLabel>
+                                                           for="ticketsNumber"/>
                                             <p:inputText id="ticketsNumber" required="true"
-                                                         value="#{flightsTableBean.flight.ticketNumber}"/>
+                                                         value="#{flightsTableBean.selectedFlight.ticketNumber}"/>
 
                                             <h:outputLabel value="#{msg.flightTableHeaderFlightTicketsPrice}"
-                                                           for="ticketsPrice"></h:outputLabel>
+                                                           for="ticketsPrice"/>
                                             <p:inputText id="ticketsPrice" required="true"
-                                                         value="#{flightsTableBean.flight.ticketPrice}">
+                                                         value="#{flightsTableBean.selectedFlight.ticketPrice}">
                                                 <f:convertNumber type="currency"/>
                                             </p:inputText>
 
@@ -78,8 +78,8 @@
                                             <p:commandButton id="btnAdd" value="#{msg.createFlightAcceptCaption}"
                                                              update=":timeTable:flights msgs @parent"
                                                              action="#{flightsTableBean.reInit}">
-                                                <p:collector value="#{flightsTableBean.flight}"
-                                                             addTo="#{flightsTableBean.createdFlights}"/>
+                                                <p:collector value="#{flightsTableBean.selectedFlight}"
+                                                             addTo="#{flightsTableBean.flightsList}"/>
                                             </p:commandButton>
                                         </h:panelGrid>
                                     </p:panel>
@@ -89,10 +89,9 @@
                                 <h:form id="editFlightForm">
                                     <p:panel header="#{msg.tabEditFlightPanelHeader}">
                                         <h:panelGrid columns="2" id="editPanel">
-
                                             <h:outputLabel value="#{msg.tabEditFlightPanelCaption}"
-                                                           for="editedFlight"></h:outputLabel>
-                                            <p:selectOneMenu id="editedFlight"
+                                                           for="editedFlight"/>
+                                            <p:selectOneMenu id="editedFlight" editable="true"
                                                              value="#{flightsTableBean.selectedFlightNumber}" effect="fold">
                                                 <f:selectItem itemLabel="#{msg.tabEditFlightDropDownListCaption}"
                                                               itemValue=""/>
@@ -101,10 +100,8 @@
                                             </p:selectOneMenu>
                                             <p:commandButton id="btnEdit"
                                                              value="#{msg.tabEditFlightAcceptEditionButton}"
-                                                             action="#{flightsTableBean.copyAndReInit}"
+                                                             action="#{flightsTableBean.selectFlight}"
                                                              update=":timeTable:flights">
-                                                <p:collector value="#{flightsTableBean.flight}"
-                                                             addTo="#{flightsTableBean.createdFlights}"/>
                                             </p:commandButton>
                                         </h:panelGrid>
                                     </p:panel>
@@ -115,7 +112,7 @@
                     <p:layoutUnit id="center" position="center">
                         <h:form id="timeTable">
                             <p:outputPanel id="flights">
-                                <p:dataTable id="flightsTable" value="#{flightsTableBean.createdFlights}" var="flight" editable="true">
+                                <p:dataTable id="flightsTable" value="#{flightsTableBean.flightsList}" var="flight" editable="true">
 
                                     <f:facet name="header">
                                         #{msg.timeTableTitle}
@@ -161,7 +158,9 @@
                                     <p:column headerText="#{msg.flightTableHeaderFlightDepartureDate}" style="width:15%">
                                         <p:cellEditor>
                                             <f:facet name="output">
-                                                <h:outputText value="#{flight.departureDate}" />
+                                                <h:outputText value="#{flight.departureDate}">
+                                                    <f:convertDateTime pattern="dd.MM.yyyy HH:mm"/>
+                                                </h:outputText>
                                             </f:facet>
                                             <f:facet name="input">
                                                 <p:calendar value="#{flight.departureDate}" pattern="dd.MM.yyyy HH:mm" style="width:100%"/>
@@ -172,7 +171,9 @@
                                     <p:column headerText="#{msg.flightTableHeaderFlightArrivalDate}" style="width:15%">
                                         <p:cellEditor>
                                             <f:facet name="output">
-                                                <h:outputText value="#{flight.arrivalDate}" />
+                                                <h:outputText value="#{flight.arrivalDate}">
+                                                        <f:convertDateTime pattern="dd.MM.yyyy HH:mm"/>
+                                                </h:outputText>
                                             </f:facet>
                                             <f:facet name="input">
                                                 <p:calendar value="#{flight.arrivalDate}" pattern="dd.MM.yyyy HH:mm" style="width:100%"/>
@@ -210,15 +211,15 @@
                                         <p:commandLink value="#{msg.flightTableRemoveCaption}"
                                                        update=":timeTable:flights" process=":timeTable:flights">
                                             <p:collector value="#{flight}"
-                                                         removeFrom="#{flightsTableBean.createdFlights}"/>
+                                                         removeFrom="#{flightsTableBean.flightsList}"/>
                                         </p:commandLink>l
                                     </p:column>
 
                                 </p:dataTable>
                                 <p:commandButton id="submitCreationFlightBtn"
-                                                 value="#{msg.flightTableSubmitNewFlightButton}"
+                                                 value="#{msg.flightTableClearTimeTableButton}"
                                                  update=":timeTable:flights :tabsPanel:editFlightForm:editPanel" process=":timeTable:flights"
-                                                 action="#{flightsTableBean.addFlightsToTimetable}"/>
+                                                 action="#{flightsTableBean.clearFlightsList}"/>
                             </p:outputPanel>
 
                         </h:form>
