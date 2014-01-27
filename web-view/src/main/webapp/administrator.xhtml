@@ -9,9 +9,6 @@
 <f:view contentType="text/html">
     <h:body>
         <ui:composition template="WEB-INF/templates/basic_template.xhtml">
-            <ui:define name="header">
-                <h3>Hello, Admin!</h3>
-            </ui:define>
             <ui:define name="content">
                 <p:layout fullPage="true">
                     <p:layoutUnit id="top" position="north" size="50">
@@ -88,6 +85,7 @@
                             <p:tab title="#{msg.timeTableTabEditFlight}">
                                 <h:form id="editFlightForm">
                                     <p:panel header="#{msg.tabEditFlightPanelHeader}">
+                                        <h:outputText value="the ability to search by flight number and activation of editing will be implemented later" style="color: red"/>
                                         <h:panelGrid columns="2" id="editPanel">
                                             <h:outputLabel value="#{msg.tabEditFlightPanelCaption}"
                                                            for="editedFlight"/>

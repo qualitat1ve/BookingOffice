@@ -7,73 +7,137 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core">
 <f:view contentType="text/html">
-<h:body>
-    <ui:composition template="WEB-INF/templates/basic_template.xhtml">
-        <ui:define name="header">
-            <h3>Hello, Officer!</h3>
-        </ui:define>
-        <ui:define name="content">
-            <p:layout fullPage="true">
-            <p:layoutUnit id="top" position="north" size="50">
-                <p:outputLabel value="#{msg.accountsTableHeaderTitle}"/>
-            </p:layoutUnit>
-                <p:layoutUnit id="left" position="west" size="400" resizable="false" closable="false"
-                              collapsible="false" header="#{msg.leftMenuOptionLabel}">
-                    <p:accordionPanel id="tabsPanel">
-                        <p:tab title="#{msg.accountTableTabAddFlight}">
-                            <h:form id="newAccountForm">
+    <h:body>
+        <ui:composition template="WEB-INF/templates/basic_template.xhtml">
+            <ui:define name="content">
+                <p:layout fullPage="true">
+                    <p:layoutUnit id="top" position="north" size="50">
+                        <p:outputLabel value="#{msg.accountsTableHeaderTitle}"/>
+                    </p:layoutUnit>
+                    <p:layoutUnit id="left" position="west" size="400" resizable="false" closable="false"
+                                  collapsible="false" header="#{msg.leftMenuOptionLabel}">
+                        <p:accordionPanel id="tabsPanel">
+                            <p:tab title="#{msg.accountTableTabAddFlight}">
+                                <h:form id="newAccountForm">
 
-                                <p:panel header="#{msg.createAccount}">
-                                    <h:panelGrid columns="2" id="grid">
-                                        <h:outputLabel value="#{msg.accountTableHeaderUserName}"
-                                                       for="accountName"/>
-                                        <p:inputText id="accountName"
-                                                     value="#{accountsBean.selectedAccount.userName}"
-                                                     required="true"/>
+                                    <p:panel header="#{msg.createAccount}">
+                                        <h:panelGrid columns="2" id="grid">
+                                            <h:outputLabel value="#{msg.accountTableHeaderUserName}"
+                                                           for="accountName"/>
+                                            <p:inputText id="accountName"
+                                                         value="#{accountsBean.selectedAccount.userName}"
+                                                         required="true"/>
 
-                                        <h:outputLabel value="#{msg.accountTableHeaderUserMiddleName}"
-                                                       for="middleName"/>
-                                        <p:inputText id="middleName"
-                                                     value="#{accountsBean.selectedAccount.userMiddlename}"
-                                                     required="true"/>
-                                        <h:outputLabel value="#{msg.accountTableHeaderUserSurName}"
-                                                       for="surName"/>
-                                        <p:inputText id="surName"
-                                                     value="#{accountsBean.selectedAccount.userSurname}"
-                                                     required="true"/>
+                                            <h:outputLabel value="#{msg.accountTableHeaderUserMiddleName}"
+                                                           for="middleName"/>
+                                            <p:inputText id="middleName"
+                                                         value="#{accountsBean.selectedAccount.userMiddleName}"
+                                                         required="true"/>
+                                            <h:outputLabel value="#{msg.accountTableHeaderUserSurName}"
+                                                           for="surName"/>
+                                            <p:inputText id="surName"
+                                                         value="#{accountsBean.selectedAccount.userSurname}"
+                                                         required="true"/>
 
-                                        <h:outputLabel value="#{msg.accountTableHeaderUserLogin}"
-                                                       for="login"/>
-                                        <p:selectOneMenu id="login" value="#{accountsBean.selectedAccount.login}"
-                                                         effect="fold" editable="false">
-                                            <f:selectItem itemLabel="#{msg.selectLoginDefaultLabel}" itemValue=""/>
-                                            <f:selectItems value="#{accountsBean.loginSet}"/>
-                                        </p:selectOneMenu>
+                                            <h:outputLabel value="#{msg.accountTableHeaderUserLogin}"
+                                                           for="login"/>
+                                            <p:selectOneMenu id="login" value="#{accountsBean.selectedAccount.login}"
+                                                             effect="fold" editable="false">
+                                                <f:selectItem itemLabel="#{msg.selectLoginDefaultLabel}" itemValue=""/>
+                                                <f:selectItems value="#{accountsBean.loginSet}"/>
+                                            </p:selectOneMenu>
 
 
-                                        <p:commandButton value="#{msg.createAccountResetCaption}" type="reset"/>
+                                            <p:commandButton value="#{msg.createAccountResetCaption}" type="reset"/>
 
-                                        <p:commandButton id="btnAdd" value="#{msg.createAccountAcceptCaption}"
-                                                         update="@parent"
-                                                         action="#{accountsBean.reInit}">
-                                            <p:collector value="#{accountsBean.selectedAccount}"
-                                                         addTo="#{accountsBean.accountList}"/>
-                                        </p:commandButton>
-                                    </h:panelGrid>
-                                </p:panel>
-                            </h:form>
-                        </p:tab>
+                                            <p:commandButton id="btnAdd" value="#{msg.createAccountAcceptCaption}"
+                                                             update=":accountsForm:accounts @parent"
+                                                             action="#{accountsBean.reInit}">
+                                                <p:collector value="#{accountsBean.selectedAccount}"
+                                                             addTo="#{accountsBean.accountList}"/>
+                                            </p:commandButton>
+                                        </h:panelGrid>
+                                    </p:panel>
+                                </h:form>
+                            </p:tab>
 
-                    </p:accordionPanel>
-                </p:layoutUnit>
-                <p:layoutUnit id="center" position="center">
-                </p:layoutUnit>
-            </p:layout>
+                        </p:accordionPanel>
+                    </p:layoutUnit>
+                    <p:layoutUnit id="center" position="center">
+                        <h:form id="accountsForm">
+                            <p:outputPanel id="accounts">
+                                <p:dataTable id="accountsTable" value="#{accountsBean.accountList}" var="account"
+                                             editable="true">
 
-        </ui:define>
+                                    <f:facet name="header">
+                                        #{msg.accountsTableTitle}
+                                    </f:facet>
 
-    </ui:composition>
-</h:body>
+                                    <p:column headerText="#{msg.accountTableHeaderUserSurName}" style="width: 12%">
+                                        <p:cellEditor>
+                                            <f:facet name="output">
+                                                <h:outputText value="#{account.userSurname}"/>
+                                            </f:facet>
+                                            <f:facet name="input">
+                                                <p:inputText value="#{account.userSurname}" style="width: 100%"/>
+                                            </f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+
+                                    <p:column headerText="#{msg.accountTableHeaderUserName}" style="width: 12%">
+                                        <p:cellEditor>
+                                            <f:facet name="output">
+                                                <h:outputText value="#{account.userName}"/>
+                                            </f:facet>
+                                            <f:facet name="input">
+                                                <p:inputText value="#{account.userName}" style="width: 100%"/>
+                                            </f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+
+                                    <p:column headerText="#{msg.accountTableHeaderUserMiddleName}" style="width: 12%">
+                                        <p:cellEditor>
+                                            <f:facet name="output">
+                                                <h:outputText value="#{account.userMiddleName}"/>
+                                            </f:facet>
+                                            <f:facet name="input">
+                                                <p:inputText value="#{account.userMiddleName}" style="width: 100%"/>
+                                            </f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+
+                                    <p:column headerText="#{msg.accountTableHeaderUserLogin}" style="width: 12%">
+                                        <p:cellEditor>
+                                            <f:facet name="output">
+                                                <h:outputText value="#{account.login}"/>
+                                            </f:facet>
+                                            <f:facet name="input">
+                                                <h:selectOneMenu value="#{account.login}">
+                                                    <f:selectItems value="#{accountsBean.loginSet}" var="login"
+                                                                   itemLabel="#{login}" itemValue="#{login}"/>
+                                                </h:selectOneMenu>
+                                            </f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+
+                                    <p:column headerText="#{msg.accountIsActive}" style="width: 2%">
+                                        <p:selectBooleanCheckbox id="accountActivation" value="#{account.frozen}"/>
+                                    </p:column>
+
+                                    <p:column headerText="#{msg.accountTableEdit}" style="width:3%">
+                                        <p:rowEditor/>
+                                    </p:column>
+
+                                </p:dataTable>
+                            </p:outputPanel>
+                        </h:form>
+                    </p:layoutUnit>
+                </p:layout>
+
+            </ui:define>
+
+        </ui:composition>
+    </h:body>
 </f:view>
 
 </html>

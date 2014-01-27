@@ -10,7 +10,12 @@ import java.util.List;
 public class AccountsBean {
     private List<Account> accountList = new ArrayList<Account>();
     private Account selectedAccount = new Account();
-    private String[] loginSet = {"administrator", "accountant", "analyst", "security officer"};
+    private String[] loginSet = {
+            "administrator",         //1
+            "accountant",            //2
+            "analyst",               //3
+            "security officer"       //4
+    };
 
 
     public AccountsBean() {
@@ -22,7 +27,7 @@ public class AccountsBean {
         account.setLogin("administrator");
         account.setPassword("administrator");
         account.setUserName("Vasiliy");
-        account.setUserMiddlename("Nikiforovich");
+        account.setUserMiddleName("Nikiforovich");
         account.setUserSurname("Ustinov");
         account.setUserRole(1);
         accountList.add(account);
@@ -30,7 +35,7 @@ public class AccountsBean {
         account1.setLogin("analyst");
         account1.setPassword("analyst");
         account1.setUserName("Romuald");
-        account1.setUserMiddlename("Bronislavovich");
+        account1.setUserMiddleName("Bronislavovich");
         account1.setUserSurname("Medvedev");
         account1.setUserRole(2);
         accountList.add(account1);
@@ -38,7 +43,7 @@ public class AccountsBean {
         account2.setLogin("accountant");
         account2.setPassword("accountant");
         account2.setUserName("Petr");
-        account2.setUserMiddlename("Ivanovich");
+        account2.setUserMiddleName("Ivanovich");
         account2.setUserSurname("Pupkin");
         account2.setUserRole(3);
         accountList.add(account2);

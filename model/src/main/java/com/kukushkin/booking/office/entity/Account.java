@@ -11,8 +11,9 @@ public class Account implements Persistent {
 	private String password;
 	private String userName;
 	private String userSurname;
-	private String userMiddlename;
+	private String userMiddleName;
 	private int userRole;
+    private boolean isFrozen;
     public static final String INACTIVE_ACCOUNT_STATUS = "Inactive";
 	
 	public Account(String login) {
@@ -64,12 +65,12 @@ public class Account implements Persistent {
 		this.userSurname = userSurname;
 	}
 
-	public String getUserMiddlename() {
-		return userMiddlename;
+	public String getUserMiddleName() {
+		return userMiddleName;
 	}
 
-	public void setUserMiddlename(String userMiddlename) {
-		this.userMiddlename = userMiddlename;
+	public void setUserMiddleName(String userMiddleName) {
+		this.userMiddleName = userMiddleName;
 	}
 
 	public int getUserRole() {
@@ -79,4 +80,12 @@ public class Account implements Persistent {
 	public void setUserRole(int userRole) {
 		this.userRole = userRole;
 	}
+
+    public boolean isFrozen() {
+        return isFrozen;
+    }
+
+    public void setFrozen(boolean isActive) {
+        this.isFrozen = isActive;
+    }
 }
