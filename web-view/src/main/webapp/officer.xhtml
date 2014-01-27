@@ -6,11 +6,74 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core">
+<f:view contentType="text/html">
 <h:body>
     <ui:composition template="WEB-INF/templates/basic_template.xhtml">
-        <ui:define name="content">
+        <ui:define name="header">
             <h3>Hello, Officer!</h3>
         </ui:define>
+        <ui:define name="content">
+            <p:layout fullPage="true">
+            <p:layoutUnit id="top" position="north" size="50">
+                <p:outputLabel value="#{msg.accountsTableHeaderTitle}"/>
+            </p:layoutUnit>
+                <p:layoutUnit id="left" position="west" size="400" resizable="false" closable="false"
+                              collapsible="false" header="#{msg.leftMenuOptionLabel}">
+                    <p:accordionPanel id="tabsPanel">
+                        <p:tab title="#{msg.accountTableTabAddFlight}">
+                            <h:form id="newAccountForm">
+
+                                <p:panel header="#{msg.createAccount}">
+                                    <h:panelGrid columns="2" id="grid">
+                                        <h:outputLabel value="#{msg.accountTableHeaderUserName}"
+                                                       for="accountName"/>
+                                        <p:inputText id="accountName"
+                                                     value="#{accountsBean.selectedAccount.userName}"
+                                                     required="true"/>
+
+                                        <h:outputLabel value="#{msg.accountTableHeaderUserMiddleName}"
+                                                       for="middleName"/>
+                                        <p:inputText id="middleName"
+                                                     value="#{accountsBean.selectedAccount.userMiddlename}"
+                                                     required="true"/>
+                                        <h:outputLabel value="#{msg.accountTableHeaderUserSurName}"
+                                                       for="surName"/>
+                                        <p:inputText id="surName"
+                                                     value="#{accountsBean.selectedAccount.userSurname}"
+                                                     required="true"/>
+
+                                        <h:outputLabel value="#{msg.accountTableHeaderUserLogin}"
+                                                       for="login"/>
+                                        <p:selectOneMenu id="login" value="#{accountsBean.selectedAccount.login}"
+                                                         effect="fold" editable="false">
+                                            <f:selectItem itemLabel="#{msg.selectLoginDefaultLabel}" itemValue=""/>
+                                            <f:selectItems value="#{accountsBean.loginSet}"/>
+                                        </p:selectOneMenu>
+
+
+                                        <p:commandButton value="#{msg.createAccountResetCaption}" type="reset"/>
+
+                                        <p:commandButton id="btnAdd" value="#{msg.createAccountAcceptCaption}"
+                                                         update="@parent"
+                                                         action="#{accountsBean.reInit}">
+                                            <p:collector value="#{accountsBean.selectedAccount}"
+                                                         addTo="#{accountsBean.accountList}"/>
+                                        </p:commandButton>
+                                    </h:panelGrid>
+                                </p:panel>
+                            </h:form>
+                        </p:tab>
+
+                    </p:accordionPanel>
+                </p:layoutUnit>
+                <p:layoutUnit id="center" position="center">
+                </p:layoutUnit>
+            </p:layout>
+
+        </ui:define>
+
     </ui:composition>
 </h:body>
+</f:view>
+
 </html>

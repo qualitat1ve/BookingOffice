@@ -18,7 +18,7 @@
                         <p:outputLabel value="#{msg.timeTableHeaderTitle}"/>
                     </p:layoutUnit>
                     <p:layoutUnit id="left" position="west" size="400" resizable="false" closable="false"
-                                  collapsible="false" header="#{msg.timeTableOptionLabel}">
+                                  collapsible="false" header="#{msg.leftMenuOptionLabel}">
                         <p:accordionPanel id="tabsPanel">
                             <p:tab title="#{msg.timeTableTabAddFlight}">
                                 <h:form id="newFlightForm">
@@ -221,11 +221,9 @@
                                                  update=":timeTable:flights :tabsPanel:editFlightForm:editPanel" process=":timeTable:flights"
                                                  action="#{flightsTableBean.clearFlightsList}"/>
                             </p:outputPanel>
-
                         </h:form>
                     </p:layoutUnit>
                 </p:layout>
-
             </ui:define>
         </ui:composition>
     </h:body>
