@@ -1,6 +1,7 @@
 package com.kukushkin.booking.office.entity;
 
-import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.persistence.*;
 
@@ -11,13 +12,15 @@ public class Reservation implements Persistent {
 	private int id;
 	private String customerSurname;
 	private String customerName;
-	private String customerMiddlename;
+	private String customerMiddleName;
 	private String customerAddress;
-	private Timestamp reservationDate;
-	private Timestamp paymentDate;
+    @Temporal(TemporalType.TIMESTAMP)
+	private Date reservationDate;
+    @Temporal(TemporalType.TIMESTAMP)
+	private Date paymentDate;
 	
 	public Reservation() {
-        reservationDate = new Timestamp(new java.util.Date().getTime());
+        reservationDate = Calendar.getInstance().getTime();
     }
 	
 	@Override
@@ -42,11 +45,11 @@ public class Reservation implements Persistent {
 	public void setCustomerName(String customerName) {
 		this.customerName = customerName;
 	}
-	public String getCustomerMiddlename() {
-		return customerMiddlename;
+	public String getCustomerMiddleName() {
+		return customerMiddleName;
 	}
-	public void setCustomerMiddlename(String customerMiddlename) {
-		this.customerMiddlename = customerMiddlename;
+	public void setCustomerMiddleName(String customerMiddleName) {
+		this.customerMiddleName = customerMiddleName;
 	}
 	public String getCustomerAddress() {
 		return customerAddress;
@@ -54,16 +57,20 @@ public class Reservation implements Persistent {
 	public void setCustomerAddress(String customerAddress) {
 		this.customerAddress = customerAddress;
 	}
-	public Timestamp getReservationDate() {
-		return reservationDate;
-	}
-	public void setReservationDate(Timestamp reservationDate) {
-		this.reservationDate = reservationDate;
-	}
-	public Timestamp getPaymentDate() {
-		return paymentDate;
-	}
-	public void setPaymentDate(Timestamp paymentDate) {
-		this.paymentDate = paymentDate;
-	}
+
+    public Date getReservationDate() {
+        return reservationDate;
+    }
+
+    public void setReservationDate(Date reservationDate) {
+        this.reservationDate = reservationDate;
+    }
+
+    public Date getPaymentDate() {
+        return paymentDate;
+    }
+
+    public void setPaymentDate(Date paymentDate) {
+        this.paymentDate = paymentDate;
+    }
 }

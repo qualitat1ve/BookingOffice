@@ -36,7 +36,7 @@ public class ReservationDaoTest extends BaseTest {
     public void testAdd() {
         Reservation reservation = new Reservation();
         reservation.setCustomerAddress("testAddressCustomerOne");
-        reservation.setCustomerMiddlename("testMiddlenameCustomerOne");
+        reservation.setCustomerMiddleName("testMiddlenameCustomerOne");
         reservation.setCustomerName("testNameCustomerOne");
         reservation.setCustomerSurname("testSurnameCustomerOne");
         reservation.setReservationDate(new Timestamp(TestUtils.getCalendar().getTime().getTime()));
@@ -47,7 +47,7 @@ public class ReservationDaoTest extends BaseTest {
         Reservation savedReservation = reservationDao.read(newReservationId);
         assertTrue(savedReservation != null);
         assertTrue(reservation.getCustomerAddress().equals(savedReservation.getCustomerAddress()));
-        assertTrue(reservation.getCustomerMiddlename().equals(savedReservation.getCustomerMiddlename()));
+        assertTrue(reservation.getCustomerMiddleName().equals(savedReservation.getCustomerMiddleName()));
         assertTrue(reservation.getCustomerName().equals(savedReservation.getCustomerName()));
         assertTrue(reservation.getCustomerSurname().equals(savedReservation.getCustomerSurname()));
     }
