@@ -13,26 +13,121 @@
                 <p:layout fullPage="true">
                     <p:layoutUnit id="top" position="north" size="50">
                         <p:outputLabel value="#{msg.title}"/>
-                        <p:spacer width="300" height="10" />
-                        <p:commandLink id="loginLink" value="#{msg.doLogin}" onclick="PF('loginDialog').show();" style="text-align: right"/>
+                        <p:spacer width="300" height="10"/>
+                        <p:commandLink id="loginLink" value="#{msg.doLogin}" onclick="PF('loginDialog').show();"/>
                     </p:layoutUnit>
+                    <p:layoutUnit id="left" position="west" size="380" resizable="false" closable="false"
+                                  collapsible="false" header="#{msg.leftMenuOptionLabel}">
+                        <p:accordionPanel id="tabsPanel">
+                            <p:tab title="#{msg.chooseTicketsPanelHeader}">
+                                <ui:include src="flightChooser.xhtml"/>
+                            </p:tab>
+                        </p:accordionPanel>
+                    </p:layoutUnit>
+
+                    <p:layoutUnit id="right" position="east" size="250" header="#{msg.order}" resizable="true" style="text-align:center">
+                        <p:commandButton id="editOrder" value="#{msg.editOrderButton}" onclick="PF('orderDialog').show();" type="button" style="margin-top:10px"/>
+                    </p:layoutUnit>
+
                     <p:layoutUnit position="center">
+                        <h:form id="flightsForm">
+
+                            <p:growl id="growl" showDetail="true"/>
+
+                            <p:dataTable id="flightTable" var="flight" value="#{flightsTableBean.flightsList}">
+
+                                <p:ajax event="rowToggle" listener="#{flightsTableBean.onRowToggle}" update=":flightsForm:growl"/>
+
+                                <f:facet name="header">
+                                    #{msg.foundFlights}
+                                </f:facet>
+
+                                <p:column style="width:2%">
+                                    <p:rowToggler/>
+                                </p:column>
+
+                                <p:column style="width:24%">
+                                    <f:facet name="header">
+                                        #{msg.flightTableHeaderFlightArrival}
+                                    </f:facet>
+                                    <h:outputText value="#{flight.arrival}"/>
+                                </p:column>
+
+                                <p:column style="width:24%">
+                                    <f:facet name="header">
+                                        #{msg.flightTableHeaderFlightArrivalDate}
+                                    </f:facet>
+                                    <h:outputText value="#{flight.arrivalDate}">
+                                        <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                    </h:outputText>
+                                </p:column>
+
+                                <p:column style="width:24%">
+                                    <f:facet name="header">
+                                        #{msg.flightTableHeaderFlightDeparture}
+                                    </f:facet>
+                                    <h:outputText value="#{flight.departure}"/>
+                                </p:column>
+
+                                <p:column style="width:24%">
+                                    <f:facet name="header">
+                                        #{msg.flightTableHeaderFlightDepartureDate}
+                                    </f:facet>
+                                    <h:outputText value="#{flight.departureDate}">
+                                        <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                    </h:outputText>
+                                </p:column>
+
+                                <p:rowExpansion>
+                                    <h:panelGrid id="display" columns="2" cellpadding="4" style="width:300px;"
+                                                 styleClass=" ui-widget-content grid">
+
+                                        <f:facet name="header">
+                                            <h:outputText value="#{msg.flightDetails}"/>
+                                        </f:facet>
+
+                                        <h:outputText value="#{msg.flightTableHeaderFlightNumber}:"/>
+                                        <h:outputText id="number" value="#{flight.flightNumber}"/>
+
+                                        <h:outputText value="#{msg.flightTableHeaderFlightArrival}:"/>
+                                        <h:outputText id="arrival" value="#{flight.arrival}"/>
+
+                                        <h:outputText value="#{msg.flightTableHeaderFlightArrivalDate}:"/>
+                                        <h:outputText id="arrivalDate" value="#{flight.arrivalDate}">
+                                            <f:convertDateTime pattern="dd.MM.yyyy HH:mm"/>
+                                        </h:outputText>
+
+
+                                        <h:outputText value="#{msg.flightTableHeaderFlightDeparture}:"/>
+                                        <h:outputText value="#{flight.departure}"/>
+
+                                        <h:outputText value="#{msg.flightTableHeaderFlightDepartureDate}:"/>
+                                        <h:outputText value="#{flight.departureDate}">
+                                            <f:convertDateTime pattern="dd.MM.yyyy HH:mm"/>
+                                        </h:outputText>
+
+                                        <h:outputText value="#{msg.flightTableHeaderFlightTicketsNumber}:"/>
+                                        <h:outputText id="ticketsNumber" value="#{flight.ticketNumber}"/>
+
+                                        <h:outputText value="#{msg.flightTableHeaderFlightTicketsPrice}:"/>
+                                        <h:outputText id="ticketsPrice" value="#{flight.ticketPrice}"/>
+
+                                    </h:panelGrid>
+
+                                </p:rowExpansion>
+                            </p:dataTable>
+                        </h:form>
+
 
                     </p:layoutUnit>
                 </p:layout>
-                <h:form id="dialogForm">
-                    <p:dialog id="basicDialog" header="Basic Dialog" widgetVar="loginDialog">
-                        <p:panel>
-                            <h:panelGrid columns="2">
-                                <h:outputText value="Login"/>
-                                <h:inputText value="#{userBean.user}"/>
-                                <h:outputText value="Password"/>
-                                <h:inputSecret value="#{userBean.password}"/>
-                            </h:panelGrid>
-                            <h:commandButton value="Enter" update="dialogForm" action="#{userBean.checkUser}"/>
-                        </p:panel>
-                    </p:dialog>
-                </h:form>
+                <p:dialog id="basicDialog" header="Basic Dialog" widgetVar="loginDialog">
+                    <ui:include src="loginDialog.xhtml"/>
+                </p:dialog>
+                <p:dialog header="#{msg.orderDialog}" widgetVar="orderDialog">
+
+                </p:dialog>
+
             </ui:define>
         </ui:composition>
     </h:body>

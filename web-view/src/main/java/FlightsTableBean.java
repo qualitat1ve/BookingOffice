@@ -1,8 +1,11 @@
 import com.kukushkin.booking.office.entity.Flight;
 import org.primefaces.event.RowEditEvent;
+import org.primefaces.event.ToggleEvent;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -154,6 +157,11 @@ public class FlightsTableBean implements Serializable {
 
     public void onCancel(RowEditEvent event) {
 //        FacesMessage msg = new FacesMessage("Flight editing cancelled", ((Flight) event.getObject()).getFlightNumber());
+//        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public void onRowToggle(ToggleEvent event) {
+//        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Row State " + event.getVisibility(), "Flight:" );
 //        FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 

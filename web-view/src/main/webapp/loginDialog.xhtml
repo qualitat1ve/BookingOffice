@@ -5,17 +5,16 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-<h:head></h:head>
 <h:body>
     <h:form>
         <p:panel>
             <h:panelGrid columns="2">
-                <h:outputText value="Login"/>
+                <h:outputText value="#{msg.loginDialogLogin}"/>
                 <h:inputText value="#{userBean.user}"/>
-                <h:outputText value="Password"/>
+                <h:outputText value="#{msg.loginDialogPassword}"/>
                 <h:inputSecret value="#{userBean.password}"/>
             </h:panelGrid>
-            <h:commandButton value="Enter" action="#{userBean.checkUser}"/>
+            <h:commandButton value="#{msg.loginDialogAccept}" action="#{userBean.checkUser}"/>
         </p:panel>
     </h:form>
 </h:body>
