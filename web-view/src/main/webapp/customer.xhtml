@@ -12,21 +12,27 @@
             <ui:define name="content">
                 <p:layout fullPage="true">
                     <p:layoutUnit id="top" position="north" size="50">
-                        <h:form id="topForm">
-                            <p:outputLabel value="#{msg.accountsTableHeaderTitle}"/>
-                            <p:growl id="growl" showDetail="true"/>
-
-                            <p:commandButton id="modalDialogButton" value="Modal" onclick="dlg2.show();" type="button"
-                                             process="@this" update="@none"/>
-
-                        <p:dialog id="modalDialog" header="Modal Dialog" widgetVar="dlg2" modal="true" height="50"
-                                  appendToBody="false">
-                            <h:outputText value="This is a Modal Dialog."/>
-                        </p:dialog>
-                        </h:form>
+                        <p:outputLabel value="#{msg.title}"/>
+                        <p:spacer width="300" height="10" />
+                        <p:commandLink id="loginLink" value="#{msg.doLogin}" onclick="PF('loginDialog').show();" style="text-align: right"/>
                     </p:layoutUnit>
-                    <p:layoutUnit position="center"/>
+                    <p:layoutUnit position="center">
+
+                    </p:layoutUnit>
                 </p:layout>
+                <h:form id="dialogForm">
+                    <p:dialog id="basicDialog" header="Basic Dialog" widgetVar="loginDialog">
+                        <p:panel>
+                            <h:panelGrid columns="2">
+                                <h:outputText value="Login"/>
+                                <h:inputText value="#{userBean.user}"/>
+                                <h:outputText value="Password"/>
+                                <h:inputSecret value="#{userBean.password}"/>
+                            </h:panelGrid>
+                            <h:commandButton value="Enter" update="dialogForm" action="#{userBean.checkUser}"/>
+                        </p:panel>
+                    </p:dialog>
+                </h:form>
             </ui:define>
         </ui:composition>
     </h:body>

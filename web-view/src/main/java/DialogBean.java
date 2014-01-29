@@ -8,6 +8,6 @@ import java.io.Serializable;
 @SessionScoped
 public class DialogBean implements Serializable{
     public void loginDialog() {
-        RequestContext.getCurrentInstance().openDialog("loginDialog");
+        RequestContext.getCurrentInstance().openDialog("loginDialog.xhtml");
     }
 }

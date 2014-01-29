@@ -30,14 +30,14 @@ public class UserBean implements Serializable{
 
     public String checkUser(){
         if(user.equals("officer") && this.password.equals("officer")){
-            return "officer";
+            return "officer.xhtml";
         } else if (user.equals("accountant") && this.password.equals("accountant")){
-            return "accountant";
+            return "accountant.xhtml";
         } else if (user.equals("analyst") && this.password.equals("analyst")) {
-            return "analyst";
+            return "analyst.xhtml";
         } else if (user.equals("administrator") && this.password.equals("administrator")) {
-            return "administrator";
-        } else return "loginFailed";
+            return "administrator.xhtml";
+        } else return "loginFailed.xhtml";
     }
 
     public String getText() {
