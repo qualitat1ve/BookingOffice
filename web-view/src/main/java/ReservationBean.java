@@ -2,7 +2,9 @@ import com.kukushkin.booking.office.entity.Flight;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @ManagedBean
@@ -13,6 +15,7 @@ public class ReservationBean {
     private String customerSurname;
     private int bookedTicket = 1;
     private double summaryTicketsPrice;
+    private List<Flight> reservedFlights = new ArrayList<>();
     private Map<Flight, Integer> reservedTickets = new HashMap<>();
 
     public ReservationBean() {
@@ -59,9 +62,29 @@ public class ReservationBean {
         this.summaryTicketsPrice = summaryTicketsPrice;
     }
 
+    public List<Flight> getReservedFlights() {
+        return reservedFlights;
+    }
+
+    public void setReservedFlights(List<Flight> reservedFlights) {
+        this.reservedFlights = reservedFlights;
+    }
+
     public double calculateSummaryTicketsPrice(double price) {
         summaryTicketsPrice = bookedTicket * price;
         return summaryTicketsPrice;
+    }
+
+    public int detectTicketsNumber(Flight flight) {
+        int number = 0;
+        for (Map.Entry<Flight, Integer> entry : reservedTickets.entrySet()) {
+            if(entry.getKey().equals(flight)) number = entry.getValue();
+        }
+        return number;
+    }
+
+    public void removeFromReservation(Flight flight) {
+        reservedTickets.remove(flight);
     }
 
     public Map<Flight, Integer> getReservedTickets() {
@@ -72,13 +95,16 @@ public class ReservationBean {
         this.reservedTickets = reservedTickets;
     }
 
-    public String bookTickets() {
-        return null;
-    }
-
     public String addToReservation(Flight flight) {
         reservedTickets.put(flight, bookedTicket);
         return null;
+    }
+
+    public int totalPrice() {
+
+        //TODO: implement
+        int price = 100;
+        return price;
     }
 
 }

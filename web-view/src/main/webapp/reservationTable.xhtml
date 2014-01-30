@@ -2,11 +2,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
 <f:view>
-    <h:outputLabel value="Hello, world"/>
     <h:form id="timeTable">
         <p:outputPanel id="flights">
             <p:dataTable id="flightsTable" value="#{reservationBean.reservedFlights}" var="flight" editable="true">
@@ -45,8 +45,8 @@
                         </f:facet>
                         <f:facet name="input">
                             <p:inputText value="#{flight.ticketNumber}" style="width:100%"/>
-                            <p:spinner value="#{reservationBean.detectTicketsNumber}" min="1" max="#{flight.ticketNumber}">
-                                <p:ajax update="total" process="@this"/>
+                            <p:spinner value="#{reservationBean.detectTicketsNumber(flight)}" min="1" max="#{flight.ticketNumber}">
+                                
                             </p:spinner>
                         </f:facet>
                     </p:cellEditor>
@@ -67,6 +67,15 @@
                                      removeFrom="#{reservationBean.reservedFlights}"/>
                     </p:commandLink>
                 </p:column>
+                <p:summaryRow>
+                    <p:column colspan="3" style="text-align:right">
+                        Total:
+                    </p:column>
+
+                    <p:column>
+                        #{reservationBean.totalPrice}$
+                    </p:column>
+                </p:summaryRow>
 
             </p:dataTable>
 
