@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:view>
+    <h:outputLabel value="Hello, world"/>
+    <h:form id="timeTable">
+        <p:outputPanel id="flights">
+            <p:dataTable id="flightsTable" value="#{reservationBean.reservedFlights}" var="flight" editable="true">
+
+                <f:facet name="header">
+                    #{msg.reservationFormHeader}
+                </f:facet>
+                <p:column headerText="#{msg.flightTableHeaderFlightNumber}" style="width: 12%">
+                    <h:outputText value="#{flight.flightNumber}"/>
+                </p:column>
+
+                <p:column headerText="#{msg.flightTableHeaderFlightDeparture}" style="width: 10%">
+                    <h:outputText value="#{flight.departure}"/>
+                </p:column>
+
+                <p:column headerText="#{msg.flightTableHeaderFlightArrival}" style="width:10%">
+                    <h:outputText value="#{flight.arrival}" />
+                </p:column>
+
+                <p:column headerText="#{msg.flightTableHeaderFlightDepartureDate}" style="width:15%">
+                    <h:outputText value="#{flight.departureDate}">
+                        <f:convertDateTime pattern="dd.MM.yyyy HH:mm"/>
+                    </h:outputText>
+                </p:column>
+
+                <p:column headerText="#{msg.flightTableHeaderFlightArrivalDate}" style="width:15%">
+                    <h:outputText value="#{flight.arrivalDate}">
+                        <f:convertDateTime pattern="dd.MM.yyyy HH:mm"/>
+                    </h:outputText>
+                </p:column>
+
+                <p:column headerText="#{msg.flightTableHeaderFlightTicketsNumber}" style="width:8%">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{flight.ticketNumber}" />
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText value="#{flight.ticketNumber}" style="width:100%"/>
+                            <p:spinner value="#{reservationBean.detectTicketsNumber}" min="1" max="#{flight.ticketNumber}">
+                                <p:ajax update="total" process="@this"/>
+                            </p:spinner>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column headerText="#{msg.flightTableHeaderFlightTicketsPrice}" style="width:8%">
+                    <h:outputText value="#{flight.ticketPrice}" />
+                </p:column>
+
+                <p:column headerText="#{msg.flightTableEdit}" style="width:3%">
+                    <p:rowEditor />
+                </p:column>
+
+                <p:column headerText="#{msg.timeTableOperationCaption}" style="width: 8%">
+                    <p:commandLink value="#{msg.flightTableRemoveCaption}" actionListener="#{reservationBean.removeFromReservation(flight)}"
+                                   update=":timeTable:flights" process=":timeTable:flights">
+                        <p:collector value="#{flight}"
+                                     removeFrom="#{reservationBean.reservedFlights}"/>
+                    </p:commandLink>
+                </p:column>
+
+            </p:dataTable>
+
+        </p:outputPanel>
+    </h:form>
+</f:view>
+</html>

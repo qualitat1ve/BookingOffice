@@ -26,6 +26,7 @@
                     </p:layoutUnit>
 
                     <p:layoutUnit id="right" position="east" size="250" header="#{msg.order}" resizable="true" style="text-align:center">
+
                         <p:commandButton id="editOrder" value="#{msg.editOrderButton}" onclick="PF('orderDialog').show();" type="button" style="margin-top:10px"/>
                     </p:layoutUnit>
 
@@ -79,40 +80,116 @@
                                 </p:column>
 
                                 <p:rowExpansion>
-                                    <h:panelGrid id="display" columns="2" cellpadding="4" style="width:300px;"
-                                                 styleClass=" ui-widget-content grid">
 
+                                    <p:panelGrid style="margin-top:20px">
                                         <f:facet name="header">
-                                            <h:outputText value="#{msg.flightDetails}"/>
+                                            <p:row>
+                                                <p:column colspan="4">#{msg.bookingTicketsFormHeader}</p:column>
+                                            </p:row>
+                                            <p:row>
+                                                <p:column colspan="2">#{msg.flightDetails}</p:column>
+                                                <p:column colspan="2">#{msg.bookingTicketsFormCustomerHeader}</p:column>
+                                            </p:row>
                                         </f:facet>
 
-                                        <h:outputText value="#{msg.flightTableHeaderFlightNumber}:"/>
-                                        <h:outputText id="number" value="#{flight.flightNumber}"/>
+                                        <p:row>
+                                            <p:column style="font-weight: bold;">
+                                                <h:outputText value="#{msg.bookingTicketsFormFlightNumber}:"/>
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value="#{flight.flightNumber}"/>
+                                            </p:column>
 
-                                        <h:outputText value="#{msg.flightTableHeaderFlightArrival}:"/>
-                                        <h:outputText id="arrival" value="#{flight.arrival}"/>
+                                            <p:column style="font-weight: bold;">
+                                                <h:outputText value="#{msg.bookingTicketsFormCustomerName}:"/>
+                                            </p:column>
+                                            <p:column>
+                                                <p:inputText value="#{reservationBean.customerName}"/>
+                                            </p:column>
+                                        </p:row>
 
-                                        <h:outputText value="#{msg.flightTableHeaderFlightArrivalDate}:"/>
-                                        <h:outputText id="arrivalDate" value="#{flight.arrivalDate}">
-                                            <f:convertDateTime pattern="dd.MM.yyyy HH:mm"/>
-                                        </h:outputText>
+                                        <p:row>
+                                            <p:column style="font-weight: bold;">
+                                                <h:outputText value="#{msg.bookingTicketsFormArrival}:"/>
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value="#{flight.arrival}"/>
+                                            </p:column>
+
+                                            <p:column style="font-weight: bold;">
+                                                <h:outputText value="#{msg.bookingTicketsFormCustomerMiddleName}:"/>
+                                            </p:column>
+                                            <p:column>
+                                                <p:inputText value="#{reservationBean.customerMiddleName}"/>
+                                            </p:column>
+                                        </p:row>
+
+                                        <p:row>
+                                            <p:column style="font-weight: bold;">
+                                                <h:outputText value="#{msg.bookingTicketsFormArrivalDate}:"/>
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value="#{flight.arrivalDate}">
+                                                <f:convertDateTime pattern="dd.MM.yyyy HH:mm"/>
+                                                </h:outputText>
+                                            </p:column>
+
+                                            <p:column style="font-weight: bold;">
+                                                <h:outputText value="#{msg.bookingTicketsFormCustomerSurname}:"/>
+                                            </p:column>
+                                            <p:column>
+                                                <p:inputText value="#{reservationBean.customerSurname}"/>
+                                            </p:column>
+                                        </p:row>
+
+                                        <p:row>
+                                            <p:column style="font-weight: bold;">
+                                                <h:outputText value="#{msg.bookingTicketsFormDeparture}:"/>
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value="#{flight.departure}"/>
+                                            </p:column>
+
+                                            <p:column style="font-weight: bold;">
+                                                <h:outputText value="#{msg.bookingTicketsFormCustomerAmountOfTickets}:"/>
+                                            </p:column>
+                                            <p:column>
+                                                <p:spinner value="#{reservationBean.bookedTicket}" min="1" max="#{flight.ticketNumber}">
+                                                        <p:ajax update="total" process="@this"/>
+                                                </p:spinner>
+                                            </p:column>
+                                        </p:row>
+
+                                        <p:row>
+                                            <p:column style="font-weight: bold;">
+                                                <h:outputText value="#{msg.bookingTicketsFormDepartureDate}:"/>
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value="#{flight.departureDate}">
+                                                    <f:convertDateTime pattern="dd.MM.yyyy HH:mm"/>
+                                                </h:outputText>
+                                            </p:column>
+
+                                            <p:column style="font-weight: bold;">
+                                                <h:outputText value="#{msg.bookingTicketsFormCustomerTotalPrice}:"/>
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText id="total" value="#{reservationBean.calculateSummaryTicketsPrice(flight.ticketPrice)}"/>
+                                            </p:column>
+                                        </p:row>
 
 
-                                        <h:outputText value="#{msg.flightTableHeaderFlightDeparture}:"/>
-                                        <h:outputText value="#{flight.departure}"/>
+                                        <f:facet name="footer">
+                                            <p:row>
+                                                <p:column  colspan="4" style="text-align: center">
+                                                    <p:commandButton value="#{msg.bookingTicketsFormBookButton}" action="#{reservationBean.addToReservation(flight)}"
+                                                                     ajax="false" icon="ui-icon-check">
+                                                    </p:commandButton>
+                                                </p:column>
+                                            </p:row>
+                                        </f:facet>
+                                    </p:panelGrid>
 
-                                        <h:outputText value="#{msg.flightTableHeaderFlightDepartureDate}:"/>
-                                        <h:outputText value="#{flight.departureDate}">
-                                            <f:convertDateTime pattern="dd.MM.yyyy HH:mm"/>
-                                        </h:outputText>
-
-                                        <h:outputText value="#{msg.flightTableHeaderFlightTicketsNumber}:"/>
-                                        <h:outputText id="ticketsNumber" value="#{flight.ticketNumber}"/>
-
-                                        <h:outputText value="#{msg.flightTableHeaderFlightTicketsPrice}:"/>
-                                        <h:outputText id="ticketsPrice" value="#{flight.ticketPrice}"/>
-
-                                    </h:panelGrid>
 
                                 </p:rowExpansion>
                             </p:dataTable>
@@ -121,10 +198,10 @@
 
                     </p:layoutUnit>
                 </p:layout>
-                <p:dialog id="basicDialog" header="Basic Dialog" widgetVar="loginDialog">
+                <p:dialog id="basicDialog" header="#{msg.loginDialogCaption}" widgetVar="loginDialog">
                     <ui:include src="loginDialog.xhtml"/>
                 </p:dialog>
-                <p:dialog header="#{msg.orderDialog}" widgetVar="orderDialog">
+                <p:dialog header="#{msg.orderDialog}" widgetVar="orderDialog" modal="true">
 
                 </p:dialog>
 
