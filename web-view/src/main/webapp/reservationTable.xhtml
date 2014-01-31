@@ -8,7 +8,6 @@
       xmlns:f="http://java.sun.com/jsf/core">
 <f:view>
     <h:form id="timeTable">
-        <p:outputPanel id="flights">
             <p:dataTable id="flightsTable" value="#{reservationBean.reservedFlights}" var="flight" editable="true">
 
                 <f:facet name="header">
@@ -22,14 +21,14 @@
                     <h:outputText value="#{flight.departure}"/>
                 </p:column>
 
-                <p:column headerText="#{msg.flightTableHeaderFlightArrival}" style="width:10%">
-                    <h:outputText value="#{flight.arrival}" />
-                </p:column>
-
                 <p:column headerText="#{msg.flightTableHeaderFlightDepartureDate}" style="width:15%">
                     <h:outputText value="#{flight.departureDate}">
                         <f:convertDateTime pattern="dd.MM.yyyy HH:mm"/>
                     </h:outputText>
+                </p:column>
+
+                <p:column headerText="#{msg.flightTableHeaderFlightArrival}" style="width:10%">
+                    <h:outputText value="#{flight.arrival}" />
                 </p:column>
 
                 <p:column headerText="#{msg.flightTableHeaderFlightArrivalDate}" style="width:15%">
@@ -41,13 +40,12 @@
                 <p:column headerText="#{msg.flightTableHeaderFlightTicketsNumber}" style="width:8%">
                     <p:cellEditor>
                         <f:facet name="output">
-                            <h:outputText value="#{flight.ticketNumber}" />
+                            <h:outputText value="#{reservationBean.detectTicketsNumber(flight)}" />
                         </f:facet>
                         <f:facet name="input">
-                            <p:inputText value="#{flight.ticketNumber}" style="width:100%"/>
-                            <p:spinner value="#{reservationBean.detectTicketsNumber(flight)}" min="1" max="#{flight.ticketNumber}">
-                                
-                            </p:spinner>
+                            <p:spinner value="#{reservationBean.bookedTicket}" min="1" max="#{flight.ticketNumber}" onchange="#{reservationBean.updateBookedTicket(flight)}">
+                                <p:ajax update="@parent" process="@this"/>
+                           </p:spinner>
                         </f:facet>
                     </p:cellEditor>
                 </p:column>
@@ -62,24 +60,21 @@
 
                 <p:column headerText="#{msg.timeTableOperationCaption}" style="width: 8%">
                     <p:commandLink value="#{msg.flightTableRemoveCaption}" actionListener="#{reservationBean.removeFromReservation(flight)}"
-                                   update=":timeTable:flights" process=":timeTable:flights">
+                                   update=":timeTable" process=":timeTable">
                         <p:collector value="#{flight}"
                                      removeFrom="#{reservationBean.reservedFlights}"/>
                     </p:commandLink>
                 </p:column>
-                <p:summaryRow>
-                    <p:column colspan="3" style="text-align:right">
-                        Total:
-                    </p:column>
 
-                    <p:column>
-                        #{reservationBean.totalPrice}$
-                    </p:column>
-                </p:summaryRow>
+                <p:columnGroup type="footer">
+                    <p:row>
+                        <p:column colspan="6" footerText="#{msg.reservationTableTotalSum}" style="text-align:right"/>
+                        <p:column colspan="3" footerText="#{reservationBean.reservationTotal}$" />
+                    </p:row>
+                </p:columnGroup>
 
             </p:dataTable>
 
-        </p:outputPanel>
     </h:form>
 </f:view>
 </html>

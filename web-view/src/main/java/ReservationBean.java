@@ -100,11 +100,18 @@ public class ReservationBean {
         return null;
     }
 
-    public int totalPrice() {
+    public void updateBookedTicket(Flight flight) {
+        for (Map.Entry<Flight, Integer> entry : reservedTickets.entrySet()) {
+            if(entry.getKey().equals(flight)) reservedTickets.put(flight, bookedTicket);
+        }
+    }
 
-        //TODO: implement
-        int price = 100;
-        return price;
+    public int getReservationTotal() {
+        int total = 0;
+        for (Map.Entry<Flight, Integer> entry : reservedTickets.entrySet()) {
+            total += entry.getKey().getTicketPrice() * entry.getValue();
+        }
+        return total;
     }
 
 }
