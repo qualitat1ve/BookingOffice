@@ -6,11 +6,67 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core">
-<h:body>
-    <ui:composition template="WEB-INF/templates/basic_template.xhtml">
-        <ui:define name="content">
-            <h3>Hello, Analyst!</h3>
-        </ui:define>
-    </ui:composition>
-</h:body>
+<f:view contentType="text/html">
+    <h:body>
+        <ui:composition template="WEB-INF/templates/basic_template.xhtml">
+            <ui:define name="content">
+                <p:layout fullPage="true">
+                    <p:layoutUnit id="top" position="north" size="50">
+                        <p:outputLabel value="#{msg.reportsGeneratorHeader}"/>
+                    </p:layoutUnit>
+                    <p:layoutUnit id="left" position="west" size="370" resizable="false" closable="false"
+                                  collapsible="false" header="#{msg.leftMenuOptionLabel}">
+                        <p:accordionPanel id="tabsPanel">
+                            <p:tab title="#{msg.reportsGeneratorMenuCaption}">
+                                <h:form id="createReportForm">
+
+                                    <p:growl id="msgs"/>
+
+                                    <p:panel header="#{msg.reportsGeneratorTypeCaption}">
+                                        <h:panelGrid columns="2" id="reportTypeGrid" style="margin-bottom: 10px" cellpadding="5">
+                                            <h:outputText value="#{msg.reportsGeneratorCheckBoxDays}"/>
+                                            <p:selectBooleanCheckbox value="#{reportsBean.enableReportsByDay}"/>
+                                            <h:outputText value="#{msg.reportsGeneratorCheckBoxDestination}"/>
+                                            <p:selectBooleanCheckbox value="#{reportsBean.enableReportsByDestination}"/>
+                                        </h:panelGrid>
+                                        </p:panel>
+
+                                    <p:panel header="#{msg.reportsGeneratorDatePicker}">
+                                        <h:panelGrid columns="1" id="timePeriodGrid" style="margin-bottom: 10px" cellpadding="5">
+
+                                            <h:outputText for="startDate" value="#{msg.reportsGeneratorStartDate}"/>
+                                            <p:calendar id="startDate" value="#{reportsBean.startDate}"
+                                                        pattern="dd.MM.yyyy HH:mm"/>
+
+                                            <h:outputText for="endDate" value="#{msg.reportsGeneratorEndDate}"/>
+                                            <p:calendar id="endDate" value="#{reportsBean.endDate}"
+                                                        pattern="dd.MM.yyyy HH:mm"/>
+
+
+                                        </h:panelGrid>
+                                    </p:panel>
+                                </h:form>
+                            </p:tab>
+
+                        </p:accordionPanel>
+                    </p:layoutUnit>
+                    <p:layoutUnit id="center" position="center">
+                        <p:tabView id="chartsTabs">
+                            <p:tab title="#{msg.reportsGeneratorChartByDays}" disabled="#{reportsBean.daysChartDisabled}">
+                                <p:barChart id="chartByDays" value="#{reportsBean.daysModel}" min="0" max="200"
+                                            title="#{msg.reportsGeneratorChartByDays}" style="height: 300px"/>
+                            </p:tab>
+                            <p:tab title="#{msg.reportsGeneratorChartByDestination}" disabled="#{reportsBean.destinationChartDisabled}">
+                                <p:barChart id="chartByDestination" value="#{reportsBean.destinationModel}"
+                                            title="#{msg.reportsGeneratorChartByDestination}" min="0" max="25000"
+                                            style="height: 300px"/>
+                            </p:tab>
+                        </p:tabView>
+
+                    </p:layoutUnit>
+                </p:layout>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</f:view>
 </html>
