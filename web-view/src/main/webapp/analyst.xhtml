@@ -18,7 +18,7 @@
                                   collapsible="false" header="#{msg.leftMenuOptionLabel}">
                         <p:accordionPanel id="tabsPanel">
                             <p:tab title="#{msg.reportsGeneratorMenuCaption}">
-                                <h:form id="createReportForm">
+                               <h:form id="createReportForm">
 
                                     <p:growl id="msgs"/>
 
@@ -45,23 +45,28 @@
 
                                         </h:panelGrid>
                                     </p:panel>
+                                    <p:commandButton id="reportCreator" value="#{msg.reportsGeneratorCreateButton}" update=":chartsTabs:chartByDays :chartsTabs:chartByDestination" action="#{reportsBean.generateReports}"/>
                                 </h:form>
                             </p:tab>
 
                         </p:accordionPanel>
                     </p:layoutUnit>
                     <p:layoutUnit id="center" position="center">
+
                         <p:tabView id="chartsTabs">
                             <p:tab title="#{msg.reportsGeneratorChartByDays}" disabled="#{reportsBean.daysChartDisabled}">
                                 <p:barChart id="chartByDays" value="#{reportsBean.daysModel}" min="0" max="200"
                                             title="#{msg.reportsGeneratorChartByDays}" style="height: 300px"/>
+                                <p:button id="testBtn" ajax="true" update="chartByDays" actionListener="#{reportsBean.generateReports}"/>
                             </p:tab>
                             <p:tab title="#{msg.reportsGeneratorChartByDestination}" disabled="#{reportsBean.destinationChartDisabled}">
                                 <p:barChart id="chartByDestination" value="#{reportsBean.destinationModel}"
                                             title="#{msg.reportsGeneratorChartByDestination}" min="0" max="25000"
                                             style="height: 300px"/>
+                                <p:button id="testBtn2" ajax="true" update="chartByDestination" actionListener="#{reportsBean.generateReports}"/>
                             </p:tab>
                         </p:tabView>
+
 
                     </p:layoutUnit>
                 </p:layout>

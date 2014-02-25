@@ -18,12 +18,17 @@ public class ReportsBean implements Serializable {
     private CartesianChartModel destinationModel;
 
     public ReportsBean() {
+        daysModel = new CartesianChartModel();
+        destinationModel = new CartesianChartModel();
+    }
+    
+    public void generateReports() {
         createDaysModel();
-        createDestinationModel();
+        createDestinationModel();       
     }
 
     private void createDaysModel() {
-        daysModel = new CartesianChartModel();
+        daysModel.clear();
         ChartSeries days = new ChartSeries();
         days.setLabel("sold tickets");
         days.set("12.01.2013", 120);
@@ -37,7 +42,7 @@ public class ReportsBean implements Serializable {
     }
 
     private void createDestinationModel() {
-        destinationModel = new CartesianChartModel();
+        destinationModel.clear();
         ChartSeries destinations = new ChartSeries();
         destinations.setLabel("Sold tickets");
         destinations.set("Vienna", 988);
