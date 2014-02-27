@@ -20,17 +20,6 @@
                             <p:tab title="#{msg.reportsGeneratorMenuCaption}">
                                <h:form id="createReportForm">
 
-                                    <p:growl id="msgs"/>
-
-                                    <p:panel header="#{msg.reportsGeneratorTypeCaption}">
-                                        <h:panelGrid columns="2" id="reportTypeGrid" style="margin-bottom: 10px" cellpadding="5">
-                                            <h:outputText value="#{msg.reportsGeneratorCheckBoxDays}"/>
-                                            <p:selectBooleanCheckbox value="#{reportsBean.enableReportsByDay}"/>
-                                            <h:outputText value="#{msg.reportsGeneratorCheckBoxDestination}"/>
-                                            <p:selectBooleanCheckbox value="#{reportsBean.enableReportsByDestination}"/>
-                                        </h:panelGrid>
-                                        </p:panel>
-
                                     <p:panel header="#{msg.reportsGeneratorDatePicker}">
                                         <h:panelGrid columns="1" id="timePeriodGrid" style="margin-bottom: 10px" cellpadding="5">
 
@@ -45,7 +34,9 @@
 
                                         </h:panelGrid>
                                     </p:panel>
-                                    <p:commandButton id="reportCreator" value="#{msg.reportsGeneratorCreateButton}" update=":chartsTabs:chartByDays :chartsTabs:chartByDestination" action="#{reportsBean.generateReports}"/>
+                                    <p:commandButton id="reportCreator" value="#{msg.reportsGeneratorCreateButton}" 
+                                    update=":chartsTabs :chartsTabs:chartByDays :chartsTabs:chartByDestination"
+                                    actionListener="#{reportsBean.generateReports}"/>
                                 </h:form>
                             </p:tab>
 
@@ -54,19 +45,16 @@
                     <p:layoutUnit id="center" position="center">
 
                         <p:tabView id="chartsTabs">
-                            <p:tab title="#{msg.reportsGeneratorChartByDays}" disabled="#{reportsBean.daysChartDisabled}">
+                            <p:tab title="#{msg.reportsGeneratorChartByDays}" disabled="#{reportsBean.chartsDisabled}">
                                 <p:barChart id="chartByDays" value="#{reportsBean.daysModel}" min="0" max="200"
                                             title="#{msg.reportsGeneratorChartByDays}" style="height: 300px"/>
-                                <p:button id="testBtn" ajax="true" update="chartByDays" actionListener="#{reportsBean.generateReports}"/>
                             </p:tab>
-                            <p:tab title="#{msg.reportsGeneratorChartByDestination}" disabled="#{reportsBean.destinationChartDisabled}">
+                            <p:tab title="#{msg.reportsGeneratorChartByDestination}" disabled="#{reportsBean.chartsDisabled}">
                                 <p:barChart id="chartByDestination" value="#{reportsBean.destinationModel}"
                                             title="#{msg.reportsGeneratorChartByDestination}" min="0" max="25000"
                                             style="height: 300px"/>
-                                <p:button id="testBtn2" ajax="true" update="chartByDestination" actionListener="#{reportsBean.generateReports}"/>
                             </p:tab>
                         </p:tabView>
-
 
                     </p:layoutUnit>
                 </p:layout>

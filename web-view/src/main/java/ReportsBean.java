@@ -4,18 +4,21 @@ import org.primefaces.model.chart.ChartSeries;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Random;
 
+@SuppressWarnings("serial")
 @ManagedBean
 @SessionScoped
 public class ReportsBean implements Serializable {
-    private boolean enableReportsByDay;
-    private boolean enableReportsByDestination = true;
     private Date startDate;
     private Date endDate;
     private CartesianChartModel daysModel;
     private CartesianChartModel destinationModel;
+    //may be removed in feature
+    private boolean chartsDisabled = false;
 
     public ReportsBean() {
         daysModel = new CartesianChartModel();
@@ -24,20 +27,21 @@ public class ReportsBean implements Serializable {
     
     public void generateReports() {
         createDaysModel();
-        createDestinationModel();       
+        createDestinationModel();
+        setChartsDisabled(false);
     }
 
     private void createDaysModel() {
         daysModel.clear();
         ChartSeries days = new ChartSeries();
         days.setLabel("sold tickets");
-        days.set("12.01.2013", 120);
-        days.set("13.01.2013", 98);
-        days.set("14.01.2013", 176);
-        days.set("15.01.2013", 155);
-        days.set("16.01.2013", 87);
-        days.set("17.01.2013", 198);
-        days.set("18.01.2013", 132);
+        days.set("12.01.2013", generateRandomNumber(200));
+        days.set("13.01.2013", generateRandomNumber(200));
+        days.set("14.01.2013", generateRandomNumber(200));
+        days.set("15.01.2013", generateRandomNumber(200));
+        days.set("16.01.2013", generateRandomNumber(200));
+        days.set("17.01.2013", generateRandomNumber(200));
+        days.set("18.01.2013", generateRandomNumber(200));
         daysModel.addSeries(days);
     }
 
@@ -45,31 +49,20 @@ public class ReportsBean implements Serializable {
         destinationModel.clear();
         ChartSeries destinations = new ChartSeries();
         destinations.setLabel("Sold tickets");
-        destinations.set("Vienna", 988);
-        destinations.set("Moscow", 10999);
-        destinations.set("Seoul", 677);
-        destinations.set("Odessa", 22435);
-        destinations.set("Lvov", 9223);
-        destinations.set("New York", 1432);
-        destinations.set("Ankara", 378);
+        destinations.set("Vienna", generateRandomNumber(23000));
+        destinations.set("Moscow", generateRandomNumber(23000));
+        destinations.set("Seoul", generateRandomNumber(23000));
+        destinations.set("Odessa", generateRandomNumber(23000));
+        destinations.set("Lvov", generateRandomNumber(23000));
+        destinations.set("New York", generateRandomNumber(23000));
+        destinations.set("Ankara", generateRandomNumber(2020));
         destinationModel.addSeries(destinations);
-
     }
-
-    public boolean isEnableReportsByDay() {
-        return enableReportsByDay;
-    }
-
-    public void setEnableReportsByDay(boolean enableReportsByDay) {
-        this.enableReportsByDay = enableReportsByDay;
-    }
-
-    public boolean isEnableReportsByDestination() {
-        return enableReportsByDestination;
-    }
-
-    public void setEnableReportsByDestination(boolean enableReportsByDestination) {
-        this.enableReportsByDestination = enableReportsByDestination;
+    
+    
+    private int generateRandomNumber(int range) {
+    	Random rnd = new Random(); 
+    	return rnd.nextInt(range);
     }
 
     public Date getStartDate() {
@@ -104,12 +97,11 @@ public class ReportsBean implements Serializable {
         this.destinationModel = destinationModel;
     }
 
-    public boolean isDaysChartDisabled() {
-        return !enableReportsByDay;
-    }
+	public boolean isChartsDisabled() {
+		return chartsDisabled;
+	}
 
-
-    public boolean isDestinationChartDisabled() {
-        return  !enableReportsByDestination;
-    }
+	public void setChartsDisabled(boolean chartsDisabled) {
+		this.chartsDisabled = chartsDisabled;
+	}
 }
