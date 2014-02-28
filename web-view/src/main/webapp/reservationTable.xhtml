@@ -72,9 +72,10 @@
                         <p:column colspan="3" footerText="#{reservationBean.reservationTotal}$" />
                     </p:row>
                 </p:columnGroup>
-
             </p:dataTable>
-
+            
+            <p:commandButton id="submitButton" value="#{msg.reservationDialogSubmitButton}" onclick="@this.hide();"/>
+            <p:commandButton id="cancelButton" value="#{msg.reservationDialogCancelButton}" onclick="PF('orderDialog').hide();"/>
     </h:form>
 </f:view>
 </html>
